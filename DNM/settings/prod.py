@@ -35,7 +35,7 @@ DATABASES = {
 
 
 
-ALLOWED_HOSTS=['dnm95.no','www.dnm95.no']
+ALLOWED_HOSTS=['dnm.kiachma.webfactional.com','dnm.kiachma.webfactional.com']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
