@@ -29,9 +29,9 @@ class Grad(models.Model):
 class Title(models.Model):
     def __unicode__(self):
         return self.post
-    title = models.NullBooleanField(max_length=200, verbose_name=u'Titel')
+    title = models.NullBooleanField(max_length=200, verbose_name=u'Styrelsepost')
 
-    post = models.CharField(max_length=200, verbose_name=u'Styrelsepost')
+    post = models.CharField(max_length=200, verbose_name=u'Titel')
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
