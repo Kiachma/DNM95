@@ -1,0 +1,557 @@
+/*
+* Skeleton V1.2
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 6/20/2012
+*/
+
+/* Table of Content
+==================================================
+	#Site Styles
+	#Page Styles
+	#Media Queries
+	#Font-Face */
+
+/* #Site Styles
+================================================== */
+
+/* #Page Styles
+================================================== */
+
+/* #Media Queries
+================================================== */
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {
+}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    #banner {
+        display: none;
+    }
+
+    header {
+
+        position: absolute;
+
+    }
+
+    #menu-icon {
+
+        display: inline-block;
+
+    }
+
+    ul.navigation li {
+        height: 48px;
+        background: url(hilight.png);
+        background-repeat: repeat-x;
+    }
+
+    nav ul, nav:active ul {
+        z-index: 2;
+        display: none;
+        position: absolute;
+        padding: 20px;
+        background: #ffffff;
+        border: 5px solid #444;
+        right: 20px;
+        top: 60px;
+        width: 50%;
+        border-radius: 4px 0 4px 4px;
+
+    }
+
+    nav li {
+
+        text-align: center;
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+
+    }
+
+    nav:hover ul {
+
+        display: block;
+
+    }
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {
+    #banner {
+        display: none;
+    }
+
+    header {
+
+        position: absolute;
+
+    }
+
+    #menu-icon {
+
+        display: inline-block;
+
+    }
+
+    ul.navigation li {
+        height: 48px;
+        background: url(hilight.png);
+        background-repeat: repeat-x;
+    }
+
+    nav ul, nav:active ul {
+        z-index: 2;
+        display: none;
+        position: absolute;
+        padding: 20px;
+        background: #ffffff;
+        border: 5px solid #444;
+        right: 20px;
+        top: 60px;
+        width: 50%;
+        border-radius: 4px 0 4px 4px;
+
+    }
+
+    nav li {
+
+        text-align: center;
+        width: 100%;
+        padding: 10px 0;
+        margin: 0;
+
+    }
+
+    nav:hover ul {
+
+        display: block;
+
+    }
+}
+
+.errorlist li {
+    color: red;
+}
+
+input[readonly='true'] {
+    background-color: #D4D0C8;
+}
+
+body {
+    font-family: "Myriad Pro", "Arial", "Liberation Sans", "Nimbus Sans L", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #E9e9e9;
+
+    color: #5E5E5E;
+}
+
+.container {
+    background: #FFFFFF;
+    margin-top: 50px;
+    border: solid;
+    border-color: #e1e1e1;
+    border-width: 1px;
+
+}
+
+#content {
+    margin-left: 40px;
+
+}
+
+#header {
+    position: relative;
+
+}
+
+#nav {
+    font-size: 12px;
+    text-transform: uppercase;
+    background-image: url('nav.png');
+    background-repeat: repeat-x;
+    height: 48px;
+    float: right;
+    margin-bottom: 35px;
+
+    -moz-box-shadow: 0px 2px 2px #CACACA;
+    -webkit-box-shadow: 0px 2px 2px #CACACA;
+    box-shadow: 0px 2px 2px #CACACA;
+    /*For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#CACACA')";
+    /*For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#CACACA');
+
+}
+
+#nav a {
+    color: white;
+
+}
+
+#nav a a:visited {
+    color: white;
+    outline: 0 none;
+    text-decoration: none;
+}
+
+#nav a:hover a:focus {
+    color: white;
+    text-decoration: underline;
+}
+
+#nav ul {
+    margin-left: 60px;
+}
+
+#nav li {
+    margin-top: 0px;
+    padding-top: 16px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+ul.navigation li.highlight {
+    height: 48px;
+    background: url(hilight.png);
+    background-repeat: repeat-x;
+}
+
+ul.navigation li.highlight a {
+    cursor: default;
+}
+
+#sidebar {
+    height: auto !important; /* real browsers */
+    height: 100%; /* IE6: treaded as min-height*/
+
+    min-height: 100%; /* real browsers */
+    position: relative;
+    min-height: inherit;
+    height: inherit;
+    border-left: dashed #e5e5e5;
+    border-left-width: 1px;
+    margin-left: 0px;
+    margin-right: 25px;
+    padding-left: 25px;
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+
+#dateBox {
+
+    font-size: 10px;
+    font-style: italic;
+    font-weight: bold;
+    display: inline-block;
+    background: url("date_gradient.png");
+    height: 84px;
+    width: 60px;
+    text-align: center
+}
+
+#dateBox h3 {
+    font-weight: bold;
+    line-height: 30px;
+    margin-bottom: 2px;
+    margin-top: 8px;
+    font-size: 28px;
+    font-style: normal;
+}
+
+#dateBox h4 {
+    line-height: 14px;
+    margin-bottom: 2px;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#post {
+    border-bottom: dashed #e5e5e5;
+    border-bottom-width: 1px;
+
+}
+
+#postContent {
+    padding: 5px;
+    padding-left: 15px;
+    overflow: hidden
+
+}
+
+#postContent h4 {
+    text-decoration: underline;
+    margin-bottom: 12px;
+
+}
+
+a:hover#menu-icon {
+
+    background-color: #444;
+    border-radius: 4px 4px 0 0;
+
+}
+
+#nav ul {
+
+    list-style: none;
+
+}
+
+#nav li {
+
+    display: inline-block;
+    float: left;
+    padding: 10px;
+
+}
+
+#logo {
+    margin-left: 60px;
+    /*margin: 20px;*/
+    float: left;
+    width: 122px;
+    height: 120px;
+    background: url(logo2.png) no-repeat center;
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+}
+
+#menu-icon {
+
+    display: hidden;
+    width: 40px;
+    height: 40px;
+    background: url(menu_icon_2012.png) center;
+
+}
+
+footer {
+    background: url(footer_bg.png);
+    padding-top: 1px;
+    background-repeat: repeat-x;
+    -moz-box-shadow: 0px -2px 2px #CACACA;
+    -webkit-box-shadow: 0px -2px 2px #CACACA;
+    box-shadow: 0px -2px 2px #CACACA;
+    /*For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#CACACA')";
+    /*For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#CACACA');
+}
+
+#footerContent {
+    margin-left: 50px;
+    margin-right: 50px;
+
+}
+
+footer h2 {
+    margin-top: 36px;
+    color: #ffffff;
+    font-size: 30px;
+}
+
+footer p {
+    color: #ffffff;
+    font-size: 12px;
+}
+
+th {
+    text-align: left;
+    margin: 5px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+td {
+    text-align: left;
+    margin: 5px;
+    padding: 5px;
+}
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header {
+    margin-bottom: 8px;
+}
+
+.ui-timepicker-div dl {
+    text-align: left;
+}
+
+.ui-timepicker-div dl dt {
+    height: 25px;
+    margin-bottom: -25px;
+}
+
+.ui-timepicker-div dl dd {
+    margin: 0 10px 10px 65px;
+}
+
+.ui-timepicker-div td {
+    font-size: 90%;
+}
+
+.ui-tpicker-grid-label {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ui-timepicker-rtl {
+    direction: rtl;
+}
+
+.ui-timepicker-rtl dl {
+    text-align: right;
+}
+
+.ui-timepicker-rtl dl dd {
+    margin: 0 65px 10px 10px;
+}
+
+th {
+    margin: 5px;
+    padding: 5px;
+    font-weight: bold;
+}
+
+td {
+    margin: 5px;
+    padding: 5px;
+}
+
+.navbar {
+    background-image: none;
+    background-repeat: no-repeat;
+    border-radius: 0px 0px 0px 0px;
+    box-shadow: none;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #5E5E5E;
+    font-weight: normal;
+}
+
+a {
+    color: #0F4C8D;
+    text-decoration: none;
+}
+
+#nav li {
+    line-height: 27px;
+    margin-bottom: 12px;
+}
+
+
+
+.margin-top {
+    margin-top: 10px;
+}
+
+.margin-right {
+    margin-right: 10px;
+}
+
+.margin-left {
+    margin-left: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
+.greyCalendar select {
+    width: auto;
+}
+
+table.greyCalendar  {
+    width: 100%;
+}
+
+.icon-beer-full {
+    color: orange;
+}
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#signin-cont{
+    background-color: #E9E9E9;
+    width: 1170px
+    padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;
+    border: none;
+}
+#id_username{
+    margin-bottom: -1px;
+border-bottom-right-radius: 0px;
+border-bottom-left-radius: 0px;
+}
+
+#login-logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto ;
+    margin-bottom:10px
+}
+
+.form-signin .form-group{
+
+    margin-bottom:0px
+}

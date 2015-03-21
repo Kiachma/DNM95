@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load thumbnail %}
+{% load gravatar %}
+{% block extrahead %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/table2CSV.js"></script>
+{% endblock %}
+{% if text %}
+    {% block title %} Användare{% endblock %}
+{% endif %}
+
+
+
+{% block content %}
+
+    <h3>Medlemmar</h3>
+    {% if users %}
+        <div class="row">
+        <div class="col-sm-4" id="userData">
+            <a href="#" class="export btn btn-primary">Exportera till .csv (Excel)</a>
+        </div>
+        <div class="col-sm-8" id="userData">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="search">
+
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+            <br>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-12" id="userData">
+            <table id="user-table" data-mode-switch data-mode="swipe"
+                   class=" tablesaw tablesaw-swipe table table-striped table-hover"
+                   data-sortable data-minimap>
+                <thead>
+                <tr>
+                     <th data-sortable-col data-priority="1">
+                        Bild
+                    </th>
+                    <th data-sortable-col data-sortable-default-col data-priority="persist">
+                        Namn
+                    </th>
+                    <th data-sortable-col data-priority="2">
+                        Grad
+                    </th>
+                    <th data-sortable-col data-priority="3">
+                        Födelsetid
+                    </th>
+                    <th data-sortable-col data-priority="3">
+                        Telefonnummer
+                    </th>
+                    <th data-sortable-col data-priority="3">
+                        E-post
+                    </th>
+                    <th data-sortable-col data-priority="3">
+                        Postadress
+                    </th>
+                    {% if user.title.styrelsePost or user.is_superuser %}
+                        <th data-priority="1">
+                            Admin
+                        </th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for user_ in users %}
+                    <tr>
+                         <td>
+                             <img src="{% gravatar_url "user_.email 26" %}" class="img-rounded">
+                        </td>
+                        <td>
+                            <a href={% url 'UserInformation:profile' user_.id %}> {{ user_.get_full_name }}</a>
+
+                        </td>
+                        <td>
+                            {{ user_.grad }}
+                        </td>
+                        <td>
+                            {{ user_.birthday|date:"d.m.Y" }}
+                        </td>
+                        <td>
+                            {{ user_.phone }}
+
+                        </td>
+                        <td>
+                            {{ user_.email }}
+
+                        </td>
+                        <td>
+                            {{ user_.address }}
+
+                        </td>
+                        {% if user.title.styrelsePost or user.is_superuser %}
+                            <td>
+
+
+                                <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
+                                   data-href="{% url 'UserInformation:admin'  user_.id %}">
+                                    Administrera
+                                </a>
+
+                                <form style=" margin-bottom:0px;display:inline-block" class="form-inline"
+                                      action="{% url 'UserInformation:delete' user_.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input id="confirm" class="btn btn-danger" type="submit" value="Ta bort" onclick="return confirm('Är du säker på att du vill ta bort {{ user_.get_full_name }}')"/>
+                                </form>
+
+
+                            </td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+     </div>
+    {% else %}
+        <p>Inga användare.</p>
+    {% endif %}
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+
+        $(document).ready(function () {
+
+            function exportTableToCSV($table, filename) {
+
+                var $rows = $table.find('tr:has(td,th):visible'),
+
+                // Temporary delimiter characters unlikely to be typed by keyboard
+                // This is to avoid accidentally splitting the actual contents
+                        tmpColDelim = String.fromCharCode(11), // vertical tab character
+                        tmpRowDelim = String.fromCharCode(0), // null character
+
+                // actual delimiter characters for CSV format
+                        colDelim = '","',
+                        rowDelim = '"\r\n"',
+
+                // Grab text from table into CSV formatted string
+                        csv = '"' + $rows.map(function (i, row) {
+                            var $row = $(row),
+                                    $cols = $row.find('td:visible, th:visible');
+
+                            return $cols.map(function (j, col) {
+                                var $col = $(col),
+                                        text = $col.text();
+                                text = text.trim();
+                                return text.replace('"', '""'); // escape double quotes
+
+
+                            }).get().join(tmpColDelim);
+
+                        }).get().join(tmpRowDelim)
+                                .split(tmpRowDelim).join(rowDelim)
+                                .split(tmpColDelim).join(colDelim) + '"',
+
+                // Data URI
+                        csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+                $(this)
+                        .attr({
+                            'download': filename,
+                            'href': csvData,
+                            'target': '_blank'
+                        });
+            }
+
+            // This must be a hyperlink
+            $(".export").on('click', function (event) {
+                // CSV
+                exportTableToCSV.apply(this, [$('#userData>table'), 'export.csv']);
+
+                // IF CSV, don't do event.preventDefault() or return false
+                // We actually need this to be a typical hyperlink
+            });
+        });
+
+        $("#search").keyup(function () {
+            _this = this;
+            // Show only matching TR, hide rest of them
+            $.each($("#user-table tbody").find("tr"), function () {
+                console.log($(this).text());
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
+                    $(this).hide();
+                else
+                    $(this).show();
+            });
+        });
+    </script>
+
+
+{% endblock %}

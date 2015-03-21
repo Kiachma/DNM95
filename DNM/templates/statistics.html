@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% if text %}
+    {% block title %} Statistik{% endblock %}
+{% endif %}
+
+
+
+{% block content %}
+    <p>Anmälningar / Epost </p>
+{#    {% if valueMap %}#}
+    <canvas id="signUps" width="600" height="400"></canvas>
+{#    {% endif %}#}
+    <p>Klotter / Skribent </p>
+    <canvas id="klotter" width="600" height="400"></canvas>
+    <p>Gradfördeling</p>
+    <canvas id="grader" width="400" height="400"></canvas>
+
+    <script>
+        var options = {
+
+            //Boolean - If we show the scale above the chart data
+            scaleOverlay: false,
+
+            //Boolean - If we want to override with a hard coded scale
+            scaleOverride: true,
+
+            //** Required if scaleOverride is true **
+            //Number - The number of steps in a hard coded scale
+            scaleSteps: {{ max }},
+            //Number - The value jump in the hard coded scale
+            scaleStepWidth: 1
+        };
+        var optionsKLotter = {
+
+            //Boolean - If we want to override with a hard coded scale
+            scaleOverride: true,
+
+            //** Required if scaleOverride is true **
+            //Number - The number of steps in a hard coded scale
+            scaleSteps: {{ maxKlotter }},
+            //Number - The value jump in the hard coded scale
+            scaleStepWidth: 1
+
+        };
+        var data = {
+            labels: ["{{ keys|join:'","' }}"],
+            datasets: [
+                {
+                    fillColor: "rgba(16,81,148,0.8)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    data: [{{ values|join:',' }}]
+                }
+            ]
+        };
+        var ctx = document.getElementById("signUps").getContext("2d");
+        var myNewChart = new Chart(ctx).Bar(data, options);
+
+        var dataklotter = {
+            labels: ["{{ keysKlotter|join:'","' }}"],
+            datasets: [
+                {
+                    fillColor: "rgba(16,81,148,0.8)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    data: [{{ valuesKlotter|join:',' }}]
+                }
+            ]
+        };
+
+        var klotterctx = document.getElementById("klotter").getContext("2d");
+        var myKlotterChart = new Chart(klotterctx).Bar(dataklotter, optionsKLotter);
+
+        var gradOptions = {
+
+            //Boolean - If we want to override with a hard coded scale
+            scaleOverride: true,
+
+            //** Required if scaleOverride is true **
+            //Number - The number of steps in a hard coded scale
+            scaleSteps: {{ maxGrader }},
+            //Number - The value jump in the hard coded scale
+            scaleStepWidth: 1
+
+        }
+
+        var gradData = {
+            labels: ["{{ keysGrad|join:'","' }}"],
+            datasets: [
+                {
+                    fillColor: "rgba(220,220,220,0.5)",
+                    strokeColor: "rgba(220,220,220,1)",
+{#                    pointColor: "rgba(220,220,220,1)",#}
+{#                    pointStrokeColor: "#fff",#}
+                    data: [{{ valuesGrad|join:',' }}]
+                }
+            ]
+        }
+        var gradctx = document.getElementById("grader").getContext("2d");
+        var myGradChart = new Chart(gradctx).Bar(gradData, gradOptions);
+
+    </script>
+{% endblock %}

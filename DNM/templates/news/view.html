@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% block title %} {{ news }}{% endblock %}
+
+{% block content %}
+    <h3>{{ news.name }}</h3>
+
+    {{ news.description|safe }}
+
+    {% if user.title.styrelsePost or user.is_superuser %}
+        <a class="btn btn-default" href="{% url 'news:edit' news.id %}">Ändra</a>
+        <a class="btn btn-danger" onclick="return confirm('Är du säker på att du vill ta bort {{ news.name }}')" href="{% url 'news:delete' news.id %}">Radera </a>
+    {% endif %}
+
+{% endblock %}

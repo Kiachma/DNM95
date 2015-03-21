@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+{% block extrahead %}
+{% endblock %}
+{% block title %}{{ event }}{% endblock %}
+{% block content %}
+
+    {% load widget_tweaks %}
+    <script>
+        $('form').submit(function () {
+            $(':submit', this).click(function () {
+                return false;
+            });
+        });
+    </script>
+
+    <h3>{{ event.name }}</h3>
+
+    <p>{{ event.description|safe }}</p>
+    <hr>
+    <h4>Info</h4>
+    <p><b>Vad </b>: {{ event.name }}</p>
+    <p><b>Datum :</b> {{ event.date|date:"d.m.Y H:i" }}</p>
+    <p><b>Plats :</b> {{ event.place }}</p>
+    <p><b>Pris :</b> {{ event.price }} </p>
+    <p><b>Deadline :</b> {{ event.deadline|date:"d.m.Y H:i" }}</p>
+    <p><b>Max deltagarantal :</b> {{ event.maxSignUps }}</p>
+
+    <hr>
+
+
+
+    {% if user.title.styrelsePost or user.is_superuser  or user == event.member %}
+        <a class="btn btn-default" href="{% url 'event:edit' event.id %}">Ändra</a>
+        <a class="btn btn-danger" onclick="return confirm('Är du säker på att du vill radera {{ event.name }}')" href="{% url 'event:delete' event.id %}">Radera </a>
+    {% endif %}
+    <h3>Anmälan</h3>
+
+    {% if event.deadlinePassed %}
+        Anmälningstiden har tyvärr gått ut
+    {% else %}
+        {% if event.isFull %}
+            <p> Evenemanget är tyvärr fullt, du hamnar på reservlista!</p>
+        {% endif %}
+
+        <form class="form-horizontal" action="{% url 'signup:save' event.id %}" method="post">{% csrf_token %}
+            {% csrf_token %}
+            {{ formset.management_form }}
+            {% for form_ in formset %}
+                {% if forloop.counter == 1 %}
+                    <h4>Medlem</h4>
+                {% else %}
+                    <h4>Avec {{ forloop.counter|add:"-1" }}</h4>
+                {% endif %}
+                {% for field in form_ %}
+                    <div class="form-group"  {% if field.errors %} has-error {% endif %} >
+                        <label class="col-xs-2 control-label">
+                            {{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+
+                        <div class="col-xs-10">
+                            {{ field|add_class:"form-control" }}{{ field.errors }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% for text_field in text_fields %}
+                    <div class="form-group"  {% if field.errors %} has-error {% endif %} >
+                        <label class="col-xs-2 control-label"
+                               for="textfield_{{ text_field.id }}_{{ forloop.parentloop.counter }}">{{ text_field.textField.label }}</label>
+
+                        <div class="col-xs-10">
+                            <input class="form-control" type="text"
+                                   id="textfield_{{ text_field.id }}_{{ forloop.parentloop.counter }}"
+                                   name="textfield_{{ text_field.id }}_{{ forloop.parentloop.counter }}"/>{{ field.errors }}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for checkbox in check_boxes %}
+                    <div class="form-group"  {% if field.errors %} has-error {% endif %} >
+
+                        <label class="col-xs-2 control-label"
+                               for="checkbox_{{ checkbox.id }}_{{ forloop.parentloop.counter }}">{{ checkbox.checkbox.label }}</label>
+
+
+                        <div class="col-xs-10">
+                            <div class="checkbox">
+                                <input class="form-control" type="checkbox"
+                                       id="checkbox_{{ checkbox.id }}_{{ forloop.parentloop.counter }}"
+                                       name="checkbox_{{ checkbox.id }}_{{ forloop.parentloop.counter }}"/>{{ field.errors }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <br/>
+            <input class="btn btn-default" type="submit" value="Anmäl"/>
+
+        </form>
+    {% endif %}
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>Anmälningar ({{ count.member }}{% if event.avec != 0 %} + {{ count.avec }}{% endif %})</h4>
+        </div>
+        <div class="col-sm-6" id="userData">
+            <a href="#" class="export btn btn-primary pull-right">Exportera till .csv (Excel)</a>
+        </div>
+    </div>
+    {% if signUps %}
+        <table table data-mode-switch data-mode="swipe" class=" tablesaw tablesaw-swipe table table-striped table-hover"
+               data-sortable data-minimap id="signUps">
+            <thead>
+            <tr>
+                </ol>
+                <th data-sortable-col data-priority="persist" data-sortable-default-col>#</th>
+
+                <th data-sortable-col data-priority="persist">Namn</th>
+
+                {% if user.title.styrelsePost or user.is_superuser or user == event.member %}
+                    <th data-sortable-col data-priority="2">Diet</th>
+                    <th data-sortable-col data-priority="2">Email</th>
+                    {% for text_field in text_fields %}
+                        <th data-sortable-col data-priority="2">{{ text_field.textField.label }}</th>
+                    {% endfor %}
+                    {% for check_box in check_boxes %}
+                        <th data-sortable-col data-priority="2">{{ check_box.checkbox.label }}</th>
+                    {% endfor %}
+                    <th data-priority="4">Radera</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for signUp in signUps %}
+
+                {% if forloop.counter <= event.maxSignUps %}
+
+                    <tr style="color: #105194">
+                        <td>{{ iterator.next|add:"1" }}</td>
+                        <td>
+                            {% if signUp.avec %}
+                                {{ signUp.name }}
+                                <a href={% url 'UserInformation:profile' signUp.member.id %}>
+                                    ({{ signUp.member.get_full_name }})</a>
+                                {% else %}
+                                <a href={% url 'UserInformation:profile' signUp.member.id %}> {{ signUp.name }}</a>
+                            {% endif %}
+
+                        </td>
+
+                        {% if user.title.styrelsePost or  user.is_superuser or user == event.member or signUp.member == user %}
+                            <td>{{ signUp.diet }}</td>
+                            <td>{{ signUp.email }}</td>
+                            {% for text_field in text_fields %}
+                                <td>
+                                    {% for text_field_signup in signUp.textfieldxsignup_set.all %}
+                                        {% if text_field.id == text_field_signup.textfield.id %}
+                                            {{ text_field_signup.text }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                            {% for check_box in check_boxes %}
+                                <td>
+                                    {% for check_box_signup in signUp.checkboxxsignup_set.all %}
+                                        {% if check_box.id == check_box_signup.checkbox.id %}
+                                            {{ check_box_signup.boolean|yesno:"Ja,Nej" }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                            <td><a class="btn btn-danger"
+                                   href="{% url 'signup:remove' signUp.id event.id %}" onclick="return confirm('Är du säker på att du vill ta bort anmälan')" href="{% url 'event:delete' event.id %}" >Radera</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                    {% if forloop.counter == event.maxSignUps %}
+                        <th colspan="5">
+                            <h5>Reservlista:</h5>
+                        </th>
+                    {% endif %}
+                {% else %}
+                    <tr style="font-style: italic ; color: #5E5E5E">
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            {% if not signUp.avec %}
+                                <a href={% url 'UserInformation:profile' signUp.member.id %}> {{ signUp.name }}</a>
+                            {% else %}
+                                {{ signUp.name }}
+                                {% if signUp.avec %}
+                                    <a href={% url 'UserInformation:profile' signUp.member.id %}>
+                                        ({{ signUp.member.get_full_name }})</a>
+
+
+                                {% endif %}
+                            {% endif %}
+                        </td>
+
+                        {% if user.title.styrelsePost or  user.is_superuser or user == event.member or signUp.member == user%}
+                            <td>{{ signUp.diet }}</td>
+                            <td>{{ signUp.email }}</td>
+                            {% for text_field in text_fields %}
+                                <td>
+                                    {% for text_field_signup in signUp.textfieldxsignup_set.all %}
+                                        {% if text_field.id == text_field_signup.textfield.id %}
+                                            {{ text_field_signup.text }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                            {% for check_box in check_boxes %}
+                                <td>
+                                    {% for check_box_signup in signUp.checkboxxsignup_set.all %}
+                                        {% if check_box.id == check_box_signup.checkbox.id %}
+                                            {{ check_box_signup.boolean|yesno:"Ja,Nej" }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                            <td><a class="btn btn-danger"
+                                   href="{% url 'signup:remove' signUp.id event.id onclick="return confirm('Är du säker på att du vill ta bort anmälan')"%}">Radera</a>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        Inga anmälningar
+    {% endif %}
+    <br/>
+    <br/>
+{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        $(function () {
+            $("[rel='tooltip']").tooltip();
+        });
+
+        $(document).ready(function () {
+
+            function exportTableToCSV($table, filename) {
+
+                var $rows = $table.find('tr:has(td,th):visible'),
+
+                // Temporary delimiter characters unlikely to be typed by keyboard
+                // This is to avoid accidentally splitting the actual contents
+                        tmpColDelim = String.fromCharCode(11), // vertical tab character
+                        tmpRowDelim = String.fromCharCode(0), // null character
+
+                // actual delimiter characters for CSV format
+                        colDelim = '","',
+                        rowDelim = '"\r\n"',
+
+                // Grab text from table into CSV formatted string
+                        csv = '"' + $rows.map(function (i, row) {
+                                    var $row = $(row),
+                                            $cols = $row.find('td:visible, th:visible');
+
+                                    return $cols.map(function (j, col) {
+                                        var $col = $(col),
+                                                text = $col.text();
+                                        text = text.trim();
+                                        return text.replace('"', '""'); // escape double quotes
+
+
+                                    }).get().join(tmpColDelim);
+
+                                }).get().join(tmpRowDelim)
+                                        .split(tmpRowDelim).join(rowDelim)
+                                        .split(tmpColDelim).join(colDelim) + '"',
+
+                // Data URI
+                        csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+                $(this)
+                        .attr({
+                            'download': filename,
+                            'href': csvData,
+                            'target': '_blank'
+                        });
+            }
+
+            // This must be a hyperlink
+            $(".export").on('click', function (event) {
+                // CSV
+                exportTableToCSV.apply(this, [$('#signUps'), 'export.csv']);
+
+                // IF CSV, don't do event.preventDefault() or return false
+                // We actually need this to be a typical hyperlink
+            });
+        });
+    </script>
+
+{% endblock %}

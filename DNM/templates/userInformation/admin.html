@@ -1,0 +1,28 @@
+{% load url from future %}
+{% load widget_tweaks %}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <form action="{% url 'UserInformation:adminSave' user_id=form.instance.id %}" method="post">{% csrf_token %}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="comment_modal_{{ klotter_id }}_label">{{ user_.get_full_name }}</h4>
+            </div>
+            <div class="modal-body">
+                {% for field in form %}
+                    <div class="form-group {% if field.errors %} has-error {% endif %}">
+                        <label>{{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+                        {{ field|add_class:"form-control" }}{{ field.errors }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <input class="btn btn-default" type="submit" value="Spara"/>
+            </div>
+        </form>
+
+    </div>
+</div>
+

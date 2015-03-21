@@ -1,0 +1,26 @@
+{% extends "photologue/root.html" %}
+{% load i18n %}
+
+{% block title %}{% blocktrans with show_day=day|date:"d F Y" %}Foton för {{ show_day }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+    <div class="row col-lg-12">
+        <h1 class="page-header">{% blocktrans with show_day=day|date:"d F Y" %}Foton för {{ show_day }}{% endblocktrans %}</h1>
+    </div>
+
+	{% if object_list %}
+		<div class="row col-lg-12">
+		    {% for photo in object_list %}
+		        <a href="{{ photo.get_absolute_url }}">
+		             <img src="{{ photo.get_thumbnail_url }}" class="thumbnail" alt="{{ photo.title }}">
+		        </a>
+		    {% endfor %}
+		</div>
+	{% else %}
+		<p>{% trans "Fann inga foton" %}.</p>
+	{% endif %}
+
+    <div><a href="{% url 'photologue:photo-archive-month' day.year day|date:"m"|lower %}" class="btn btn-default">{% trans "Se alla foton för denna månad" %}</a></div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% load url from future %}
+{% load widget_tweaks %}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <form id="otherForm" method='post' class="form" role="form"
+              action="{% url 'UserInformation:other' user_id=form.instance.id %}">{% csrf_token %}
+            {{ formset.management_form }}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Uppgifter för {{ user_.get_full_name }}</h4>
+            </div>
+            <div class="modal-body">
+                {% for field in form %}
+                    <div class="form-group {% if field.errors %} has-error {% endif %}">
+                        <label>{{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+                        {{ field|add_class:"form-control" }}{{ field.errors }}
+                    </div>
+                {% endfor %}
+                {% for form_ in formset %}
+
+                    <h4>Avec {{ forloop.counter }}</h4>
+                    {% for hidden in form_.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+                    {% for field in form_.visible_fields %}
+                        <div class="form-group {% if field.errors %} has-error {% endif %}">
+                            <label>
+                                {{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+                            {{ field|add_class:"form-control" }}{{ field.errors }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <input class="btn btn-default" type="submit" value="Spara"/>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% block scripts %}
+    <script>
+        var form_options = { target: '#modal', success: function () {
+        } }
+        $('#otherForm').ajaxForm(form_options);
+    </script>
+{% endblock %}

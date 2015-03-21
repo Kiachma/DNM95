@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load widget_tweaks %}
+{% block title %}Ladda upp bildgalleri{% endblock %}
+{% block content %}
+    <h3>Ladda upp bildgalleri</h3>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% url 'gallery:add' %}" enctype="multipart/form-data" method="post">{% csrf_token %}
+        {% csrf_token %}
+
+
+         {% for field in form %}
+            <div class="form-group {% if field.errors %} has-error {% endif %}">
+                <label>{{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+                {{ field|add_class:"form-control" }}{{ field.errors }}
+            </div>
+        {% endfor %}
+
+        <input class="btn btn-default" type="submit" value="ladda upp"/>
+    </form>
+<br/>
+{% endblock %}

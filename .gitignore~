@@ -1,0 +1,17 @@
+# PyCharm
+# http://www.jetbrains.com/pycharm/webhelp/project.html
+.idea
+.iml
+settings.py
+media/
+photologue/
+photobox/
+*.pyc
+admin/
+tiny_mce/
+!Festivitas/static/photobox/
+!Festivitas/static/photobox/photobox/
+!templates/photologue/
+.logo.png
+F-db
+.pyc

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load widget_tweaks %}
+
+{% if text %}
+    {% block title %} {{ text.identifier }}{% endblock %}
+{% endif %}
+
+
+{% block content %}
+    {#    <h3> {{ text.identifier }}</h3>#}
+    {% if text %}
+        {{ text.text }}
+    {% endif %}
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% url 'editpage' identifier %}" method="post">{% csrf_token %}
+        {% csrf_token %}
+         {% for field in form %}
+            <div class="form-group {% if field.errors %} has-error {% endif %}">
+                <label>{{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+                {% if field|widget_type == 'summernotewidget' %}
+                    {{ field }}{{ field.errors }}
+                {% else %}
+                    {{ field|add_class:"form-control" }}{{ field.errors }}
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <input class="btn btn-sucess" type="submit" value="Spara"/>
+    </form>
+{% endblock %}

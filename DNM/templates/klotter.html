@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+
+
+{% if text %}
+    {% block title %} Klotterplanket{% endblock %}
+{% endif %}
+
+
+
+{% block content %}
+    <h3>Klotterplanket</h3>
+    <a class ="btn btn-success"  href="#" data-toggle="modal" data-target="#ajax-modal"
+       data-href="{% url 'klotter:new' %}">
+        Nytt inlägg
+    </a>
+{% include page_template %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+    <script>$.endlessPaginate({paginateOnScroll: true});</script>
+{% endblock %}
+{% endblock %}
+{% block scripts %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("button[id^='toggle_comments']").on('tap', function (event) {
+                var link = event.currentTarget.id;
+                var id = link.replace("toggle_comments_", "");
+                $("#" + id + "_replies").toggle();
+                return false;
+            });
+        });
+    </script>
+{% endblock %}
+
+

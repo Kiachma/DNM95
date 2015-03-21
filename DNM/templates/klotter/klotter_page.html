@@ -1,0 +1,99 @@
+{% load mptt_tags %}
+{% load endless %}
+{% if nodes %}
+    <hr>
+    {% paginate nodes %}
+    {% for node in nodes %}
+        {% recursetree node %}
+            <div id="comment_{{ node.id }}">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {{ node.text|safe }}
+                    </div>
+                    <div class="panel-footer">
+                        {% if node.member.grad.hasImage %}
+                            <a href={% url 'UserInformation:profile' node.member.id %}>
+                                {{ node.writer }}</a> {{ node.created|date:"d.m.Y H:i" }}
+                            <div style="display:inline-block">
+                                <form id="upVote_{{ node.id }}" class="form-inline"
+                                      action="{% url 'klotter:vote' node.id %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    |
+                                    {% if user in node.getUpVoters %}
+                                        <i class="fa fa-beer icon-beer-full"></i>
+                                    {% else %}
+                                        <a href="#" onclick="document.getElementById('upVote_{{ node.id }}').submit();">
+                                            <i class="fa fa-beer"></i>
+                                        </a>
+                                    {% endif %}
+                                    {{ node.upVotes|length }}
+                                </form>
+                            </div>
+
+                        {% else %}
+                            <a href={% url 'UserInformation:profile' node.member.id %}>
+                                {{ node.writer }}</a> {{ node.created|date:"d.m.Y H:i" }}
+                            <div style="display:inline-block">
+                                <form id="upVote_{{ node.id }}" class="form-inline"
+                                      action="{% url 'klotter:vote' node.id %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    |
+                                    {% if user in node.getUpVoters %}
+                                        <i class="fa fa-beer icon-beer-full"></i>
+                                    {% else %}
+                                        <a href="#" onclick="document.getElementById('upVote_{{ node.id }}').submit();">
+                                            <i class="fa fa-beer"></i>
+                                        </a>
+                                    {% endif %}
+                                    {{ node.upVotes|length }}
+                                </form>
+                            </div>
+
+                        {% endif %}
+
+
+
+                        <a class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#ajax-modal"
+                           data-href="{% url 'klotter:comment' node.id %}">
+                            Kommentera
+                        </a>
+                        {% if node.member == user %}
+                            <a class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#ajax-modal"
+                               data-href="{% url 'klotter:edit' node.id %}">
+                                Redigera inlägg
+                            </a>
+                        {% endif %}
+                        {% if node.get_descendant_count != 0 %}
+                            <button id="toggle_comments_{{ node.id }}" class="btn btn-default btn-xs">
+                                Visa/Dölj kommentarer ({{ node.get_descendant_count }})
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div id="{{ node.id }}_replies">
+                    {% if not node.is_leaf_node %}
+                        <ul class="children">
+                            {{ children }}
+                        </ul>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endrecursetree %}
+    {% endfor %}
+    {% show_more %}
+
+{% else %}
+    <p>Inga inlägg.</p>
+{% endif %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        $(function () {
+            $("[rel='tooltip']").tooltip();
+        });
+    </script>
+{% endblock %}

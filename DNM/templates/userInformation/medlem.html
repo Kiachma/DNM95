@@ -1,0 +1,39 @@
+{% load url from future %}
+{% load widget_tweaks %}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <form id="memberform" method='post' class="form" role="form"
+              action="{% url 'UserInformation:medlem' user_id=form.instance.id %}">{% csrf_token %}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Medlemsuppgifter för {{ user_.get_full_name }}</h4>
+            </div>
+            <div class="modal-body">
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form.visible_fields %}
+                    <div class="form-group {% if field.errors %} has-error {% endif %}">
+                        <label>{{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+                        {{ field|add_class:"form-control" }}{{ field.errors }}
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+                <input class="btn btn-default" type="submit" value="Spara"/>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% block scripts %}
+    <script>
+        var form_options = { target: '#modal', success: function () {
+        } }
+        $('#memberform').ajaxForm(form_options);
+    </script>
+{% endblock %}

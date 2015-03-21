@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load widget_tweaks %}
+
+{% block title %}{{ event.name }}{% endblock %}
+{% block content %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/cloneMore.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <script src="{{ STATIC_URL }}js/datepicker.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css" type="text/css"
+          rel="stylesheet"/>
+    <script type="text/javascript">
+        $(function () {
+            $(".datePicker").datetimepicker();
+        });
+    </script>
+
+    <h3> {{ event.name }}</h3>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form class="form-horizontal" style="margin-bottom: 10px" role="form" action="{% url 'event:save' event.id %}"
+          method="post">{% csrf_token %}
+        {% csrf_token %}
+
+
+         {% for field in form %}
+            <div class="form-group {% if field.errors %} has-error {% endif %}">
+                <label>{{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+                {% if field|widget_type == 'summernotewidget' %}
+                    {{ field }}{{ field.errors }}
+                {% else %}
+                    {{ field|add_class:"form-control" }}{{ field.errors }}
+                {% endif %}
+            </div>
+        {% endfor %}
+        <h4>Extra textfält</h4>
+
+        <div id="extra_textfields_btn_div">
+            <input class="btn btn-default" type="button" value="Visa extra textfält" id="extra_textfields_btn">
+        </div>
+
+
+        <div id="extra_textfields" style="display: none">
+
+
+            {{ textfieldFormSet.management_form }}
+            <hr>
+            {% for textfieldForm in textfieldFormSet %}
+                <div class='textfield' id="textfield_{{ forloop.counter }}">
+                    {% for field in textfieldForm.visible_fields %}
+                        <div class="form-group  {% if field.errors %} has-error {% endif %} ">
+                            <label for="id_textFields-{{ forloop.parentloop.counter0 }}-{{ field.name }}"
+                                   class="col-xs-2 control-label">{{ field.label }}</label>
+
+                            <div class="col-xs-10">
+                                {{ field|add_class:"form-control" }}{{ field.errors }}
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                    <hr>
+                    {% for field in textfieldForm.hidden_fields %}
+                        {{ field|add_class:"form-control"|attr:"visibility:hidden" }}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <input class="btn btn-default" type="button" value="Lägg till textfält" id="add_textfield">
+        </div>
+
+        <h4>Extra checkboxar</h4>
+
+        <div id="extra_checkboxes_btn_div">
+            <input class="btn btn-default" type="button" value="Visa extra checkboxar" id="extra_checkboxes_btn">
+        </div>
+
+        <div id="extra_checkboxes" style="display: none">
+            {{ checkboxFormSet.management_form }}
+
+            <hr>
+            {% for checkboxForm in checkboxFormSet %}
+                <div class="checkbox_" id="checkbox_{{ forloop.counter }}">
+                    {% for field in checkboxForm.visible_fields %}
+                        <div class="form-group  {% if field.errors %} has-error {% endif %} ">
+                            <label for="id_checkboxes-{{ forloop.parentloop.counter0 }}-{{ field.name }}"
+                                   class="col-xs-2 control-label">{{ field.label }}</label>
+
+                            <div class="col-xs-10">
+                                {{ field|add_class:"form-control" }}{{ field.errors }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <hr>
+                    {% for field in checkboxForm.hidden_fields %}
+                        {{ field|add_class:"form-control"|attr:"visibility:hidden" }}
+                    {% endfor %}
+                </div>
+
+            {% endfor %}
+            <input class="btn btn-default" type="button" value="Lägg till checkbox" id="add_checkbox">
+
+        </div>
+        <br/>
+
+
+        <input class="btn btn-default" type="submit" value="Spara"/>
+    </form>
+    <script>
+        {#        Clone textfield functionality#}
+        $('#add_textfield').click(function () {
+            cloneMore('div.textfield:last', 'textFields');
+        });
+
+        {#        Show extra textfields#}
+        $('#extra_textfields_btn').click(function () {
+            $("#extra_textfields").show();
+            $("#extra_textfields_btn_div").hide();
+        });
+
+        {#        Show extra textfields if first textfields is not empty#}
+        if ($('#textfield_1 input').val() != '') {
+            $("#extra_textfields").show();
+            $("#extra_textfields_btn_div").hide();
+        } else {
+            $("#extra_textfields").hide();
+            $("#extra_textfields_btn_div").show();
+        }
+
+        {#      Clone checkbox functionality#}
+        $('#add_checkbox').click(function () {
+            cloneMore('div.checkbox_:last', 'checkboxes');
+        });
+
+        {#        show extra checkboxes#}
+        $('#extra_checkboxes_btn').click(function () {
+            $("#extra_checkboxes").show();
+            $("#extra_checkboxes_btn_div").hide();
+        });
+
+        {#        Show extra checkoboxes if first is not emptyF#}
+        if ($('#checkbox_1 input').val() != '') {
+            $("#extra_checkboxes").show();
+            $("#extra_checkboxes_btn_div").hide();
+        } else {
+            $("#extra_checkboxes").hide();
+            $("#extra_checkboxes_btn_div").show();
+        }
+
+        jQuery.each($("select[multiple]"), function () {
+            // "Locations" can be any label you want
+            SelectFilter.init(this.id, "grader", 0, "/media/");
+        });
+    </script>
+
+{% endblock %}

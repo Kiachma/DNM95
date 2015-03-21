@@ -1,0 +1,57 @@
+{% load url from future %}
+
+<script type="text/javascript">
+    var myCal = new JEC('calendar', {
+        tableClass: 'greyCalendar panel panel-default',
+        firstMonth: 201301,
+        lastMonth: 203010,
+        firstDayOfWeek: 2,
+        specialDays: [ 1 ],
+        linkNewWindow: false,
+        months: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
+        weekdays: [
+            "S",
+            "M",
+            "T",
+            "O",
+            "T",
+            "F",
+            "L"
+            ]
+    });
+
+    myCal.defineEvents(
+            [
+                {% for event in event_list %}
+                    {
+                        eventDate: {{ event.getCalendarDate}},
+                        eventDescription: '{{ event.name}}',
+                        eventLink:'{% url 'event:view' event.id %}',
+                        eventType :'{{ event.madeByAdmin}}'
+                    },
+                {% endfor %}
+                {
+                    eventDate: '20130101',
+                    eventDescription: '',
+                    eventLink: ''
+                }
+            ]
+    );
+
+    myCal.showCalendar()
+
+</script>
+
+    {% for event in event_list %}
+        <div style="margin-bottom: 5px">
+            <a href={% url 'event:view' event.id %}>{{ event.name }}</a><br>
+            <div style="font-size: 10px"><b>{{ event.date|date:"d.n.Y : H:i" }}</b> | <i>Anmälan stänger: {{ event.deadline|date:"d.n : H:i" }}</i></div>
+        </div>
+    {% endfor %}
+<div id="calendar">
+
+</div>
+<a href={% url 'event_ics_export' %}> <img src="/static/images/event_feed.png" alt="iCal feed"/></a>
+
+
+

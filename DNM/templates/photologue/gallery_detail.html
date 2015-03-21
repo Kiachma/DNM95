@@ -1,0 +1,39 @@
+{% extends "photologue/root.html" %}
+{% load i18n %}
+
+{% block title %}{{ gallery.title }}{% endblock %}
+
+{% block content %}
+
+    <div class="row col-lg-12">
+        <h1 class="page-header">{{ gallery.title }}</h1>
+
+        <p class="muted">
+            <small>{% trans "Publiserat" %} {{ gallery.date_added }}</small>
+        </p>
+        {% if gallery.description %}{{ gallery.description|safe }}{% endif %}
+        <div class="photo-gallery">
+            <ul id="gallery">
+                {% for photo in gallery.public reversed %}
+                    <li class="loaded">
+                        <a href="{{ photo.get_display_url }}">
+                            <img src="{{ photo.get_thumbnail_url }}" class="thumbnail" alt="{{ photo.title }}">
+                        </a>
+
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div><a href="{% url 'photologue:gallery-list' %}" class="btn btn-default">{% trans "Se alla gallerier" %}</a>
+        </div>
+    </div>
+    <script>
+        $('#gallery').photobox('a');
+        // or with a fancier selector and some settings, and a callback:
+        {#        $('#gallery').photobox('a', { thumbs:true, time:0 }, imageLoaded);#}
+        {#        function imageLoaded(){#}
+        {#            console.log('image has been loaded...');#}
+        {#        }#}
+    </script>
+
+{% endblock %}

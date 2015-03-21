@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load thumbnail %}
+{% load widget_tweaks %}
+{% load gravatar %}
+{% if text %}
+    {% block title %} Användare{% endblock %}
+{% endif %}
+
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-3">
+            <img src="{% gravatar_url "user_.email 200" %}" class="img-thumbnail">
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2 class="help-block">
+                        {{ user_.get_full_name }}
+                    </h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <strong> Födelsetid</strong>
+                </div>
+                <div class="col-sm-9">
+                    {{ user_.birthday|date:"d.m.Y" }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <strong> Email</strong>
+                </div>
+                <div class="col-sm-9">
+                    {{ user_.email }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <strong> Telefon</strong>
+                </div>
+                <div class="col-sm-9">
+                    {{ user_.phone }}
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <strong> Postadress</strong>
+                </div>
+                <div class="col-sm-9">
+                    {{ user_.address }}
+                </div>
+            </div>
+            {% if user_.id == request.user.id or user_.id == None %}
+                <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
+                   data-href="{% url 'UserInformation:kontakt' user_.id %}">
+                    Ändra personuppgifter
+                </a>
+            {% endif %}
+            {% if user.title.styrelsePost or user.is_superuser %}
+                <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
+                   data-href="{% url 'UserInformation:admin' user_.id %}">
+                    Administrera
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Medlemsuppgifter</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5">
+                    <strong> Titel</strong>
+                </div>
+                <div class="col-sm-7">
+                    {{ user_.styrelsePost.styrelsePost }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <strong> Grad</strong>
+                </div>
+                <div class="col-sm-7">
+                    {{ user_.grad.namn }}
+                </div>
+            </div>
+        </div>
+        {% if user_.id == request.user.id or user_.id == None %}
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4>Övriga uppgifter</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-5">
+                        <strong> Dieter</strong>
+                    </div>
+                    <div class="col-sm-7">
+                        {{ user_.diet }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <strong> Avecer</strong>
+                    </div>
+                    <div class="col-sm-7">
+                        {% for avec in user_.avec_set.all %}
+                            {{ avec.name }},
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
+                   data-href="{% url 'UserInformation:other' user_.id %}">
+                    Ändra övriga uppgifter
+                </a>
+
+            </div>
+        {% endif %}
+    </div>
+
+    {% block scripts %}
+
+        <script> setTimeout(function () {
+            jQuery('#modal').modal('hide');
+        }, 1000);
+        $('body').on('hidden.bs.modal', '.modal', function () {
+            $(this).removeData('bs.modal');
+        }); </script> {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load url from future %}
+
+
+{% block title %}Alla event{% endblock %}
+{% block content %}
+
+
+    <h3>Alla event</h3>
+    {% for event in event_list %}
+            <div style="margin-bottom: 5px">
+                <a style="display: inline-block" href={% url 'event:view' event.id %}>{{ event.name }}</a>
+                <span style="display: inline-block;font-size: 10px"><b>{{ event.date|date:"d.n.Y : H:i" }}</b></span>
+            </div>
+    {% endfor %}
+
+{% endblock %}
