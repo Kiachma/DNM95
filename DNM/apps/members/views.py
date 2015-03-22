@@ -144,7 +144,22 @@ def kontakt(request, user_id):
     context = {'form': form, 'user_': user_}
     return render(request, 'userInformation/kontakt.html', context)
 
+def medlem(request, user_id):
+    if request.method == 'POST':
+        user = Member.objects.get(pk=user_id)
+        form = MemberFormMedlem(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Medlemsuppgifter sparad!')
+            return HttpResponse(render_to_string('components/dummy_modal.html', {'user_': user}))
+    if int(user_id) != request.user.id and user_id != None:
+        messages.add_message(request, messages.ERROR, 'Du har inte rätt att ändra dessa uppgifter')
+        HttpResponseRedirect(reverse('UserInformation:profile', args=(user_id)))
+    user_ = Member.objects.get(pk=user_id)
+    form = MemberFormMedlem(instance=user_)
 
+    context = {'form': form, 'user_': user_}
+    return render(request, 'userInformation/medlem.html', context)
 def new(request):
     user_ = Member()
     form = MemberFormKontakt()

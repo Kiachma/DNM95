@@ -14,9 +14,10 @@ urlpatterns = patterns('',
                        url(r'^delete/(?P<user_id>\w+)$', views.delete, name='delete'),
                        url(r'^admin/(?P<user_id>\w+)$', views.admin, name='admin'),
                        url(r'^kontakt/(?P<user_id>\w+)$', views.kontakt, name='kontakt'),
+                       url(r'^medlem/(?P<user_id>\w+)$', views.medlem, name='medlem'),
                        url(r'^other/(?P<user_id>\w+)$', views.other, name='other'),
                        url(r'^new/$', views.new, name='new'),
 
 
-)
+                       )
 

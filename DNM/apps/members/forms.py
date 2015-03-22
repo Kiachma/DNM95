@@ -34,6 +34,18 @@ class MemberForm(ModelForm):
             'address': Textarea(attrs={'cols': 80, 'rows': 5}),
             'die': Textarea(attrs={'cols': 80, 'rows': 3})
         }
+
+class MemberFormMedlem(ModelForm):
+
+    class Meta:
+        model = Member
+        fields = ('grad','title')
+
+        widgets = {
+            'grad': Select(),
+            'title': Select(),
+        }
+
 class MemberFormKontakt(ModelForm):
     def __init__(self, *args, **kwargs):
         super(MemberFormKontakt, self).__init__(*args, **kwargs)

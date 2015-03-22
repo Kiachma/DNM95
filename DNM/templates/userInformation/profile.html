@@ -95,6 +95,12 @@
                     {{ user_.grad.grad }}
                 </div>
             </div>
+            {% if user_.id == request.user.id or user_.id == None %}
+                <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
+                   data-href="{% url 'UserInformation:medlem' user_.id %}">
+                    Ändra medlemsuppgifter
+                </a>
+            {% endif %}
         </div>
         {% if user_.id == request.user.id or user_.id == None %}
             <div class="col-sm-6">
