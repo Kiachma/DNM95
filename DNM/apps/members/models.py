@@ -92,6 +92,9 @@ class Member(AbstractBaseUser, PermissionsMixin):
         if self.title:
             full_name += ' '
             full_name += self.title.namn
+        if self.grad:
+            full_name += ' '
+            full_name += self.grad.grad
         full_name += ' '
         full_name +=self.first_name +" "+self.last_name
         return full_name
