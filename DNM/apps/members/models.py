@@ -25,7 +25,12 @@ class Grad(models.Model):
     class Meta:
         ordering = ('order',)
 
+class Stamma(models.Model):
+    def __unicode__(self):
+        return self.namn or u''
+    namn = models.NullBooleanField(max_length=200, verbose_name=u'Stämma')
 
+    namn = models.CharField(max_length=200, verbose_name=u'Titel')
 class Title(models.Model):
     def __unicode__(self):
         return self.namn or u''
@@ -69,6 +74,7 @@ class Member(AbstractBaseUser, PermissionsMixin):
     # fodelsedatum = models.DateField('date of birth', blank=True, null=True)
     grad = models.ForeignKey(Grad, blank=False, default=1)
     title = models.ForeignKey(Title, blank=True, null=True, verbose_name=u'Titel')
+    stamma = models.ForeignKey(Stamma, blank=True, null=True, verbose_name=u'Stämma')
 
     phone = models.CharField(max_length=200, blank=True, verbose_name=u'Telefonnummer')
     address = models.CharField(max_length=200, blank=True, verbose_name=u'Postadress')

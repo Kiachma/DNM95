@@ -7,5 +7,4 @@ from DNM.apps.signup.models import *
 admin.site.register(User)
 admin.site.register(Grad)
 admin.site.register(Title)
-
-
+admin.site.register(Stamma)

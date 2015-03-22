@@ -26,24 +26,26 @@ class MemberForm(ModelForm):
     class Meta:
         model = Member
         fields = (
-        'username', 'first_name', 'last_name', 'email' , 'grad', 'diet','phone', 'address','password')
+        'username', 'first_name', 'last_name','stamma' ,'email' , 'grad', 'diet','phone', 'address','password')
 
         widgets = {
             'password': PasswordInput(),
             'grad': Select(),
             'address': Textarea(attrs={'cols': 80, 'rows': 5}),
-            'die': Textarea(attrs={'cols': 80, 'rows': 3})
+            'die': Textarea(attrs={'cols': 80, 'rows': 3}),
+            'stamma': Select()
         }
 
 class MemberFormMedlem(ModelForm):
 
     class Meta:
         model = Member
-        fields = ('grad','title')
+        fields = ('grad','title','stamma')
 
         widgets = {
             'grad': Select(),
             'title': Select(),
+            'stamma': Select(),
         }
 
 class MemberFormKontakt(ModelForm):
