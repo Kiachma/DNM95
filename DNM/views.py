@@ -124,7 +124,7 @@ def statistics(request):
 
 
 def contact(request):
-    styrelsen = Member.objects.filter(Q(title__isnull=False)).order_by('title__id')
+    styrelsen = Member.objects.filter(Q(title__styrelsePost=True)).order_by('title__id')
     text, created = PageText.objects.get_or_create(identifier='Kontakt')
     context = {'styrelsen': styrelsen, 'text': text}
     return render(request, 'contact.html', context)
