@@ -100,7 +100,11 @@
     {% endif %}
     <div class="row">
         <div class="col-sm-6">
-            <h4>Anmälningar ({{ count.member }}{% if event.avec != 0 %} + {{ count.avec }}{% endif %})</h4>
+            <h4>Anmälningar</h4>
+            <p>I Tenor {{ count.first }}</p>
+             <p>II Tenor {{ count.sec }}</p>
+             <p>Baryton {{ count.baryton}}</p>
+             <p>II Bas{{ count.bas }}</p>
         </div>
         <div class="col-sm-6" id="userData">
             <a href="#" class="export btn btn-primary pull-right">Exportera till .csv (Excel)</a>

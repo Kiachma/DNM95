@@ -102,8 +102,10 @@ def view(request, event_id):
     sign_up_check_boxes = TextFieldXSignup.objects.filter(signUp__event=event_id)
 
     count = {}
-    count['avec'] = len(signUps.filter(avec=True))
-    count['member'] = len(signUps.filter(Q(avec=False) | Q(avec__isnull=True)))
+    count['baryton'] = len(signUps.filter(Q(member__stamma__namn="Baryton")))
+    count['bas'] = len(signUps.filter(Q(member__stamma__namn="II Bas")))
+    count['first'] = len(signUps.filter(Q(member__stamma__namn="I Tenor")))
+    count['sec'] = len(signUps.filter(Q(member__stamma__namn="II Tenor")))
 
     c = {'event': event, 'signUps': signUps, 'formset': formset, 'check_boxes': check_boxes, 'text_fields': text_fields,
          'sign_up_text_fields': sign_up_text_fields, 'sign_up_check_boxes': sign_up_check_boxes, 'iterator': iterator, 'count' : count}
