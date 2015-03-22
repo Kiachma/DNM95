@@ -28,10 +28,10 @@ class Grad(models.Model):
 
 class Title(models.Model):
     def __unicode__(self):
-        return self.post
-    title = models.NullBooleanField(max_length=200, verbose_name=u'Styrelsepost')
+        return self.namn
+    styrelsePost = models.NullBooleanField(max_length=200, verbose_name=u'Styrelsepost')
 
-    post = models.CharField(max_length=200, verbose_name=u'Titel')
+    namn = models.CharField(max_length=200, verbose_name=u'Titel')
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
@@ -91,7 +91,7 @@ class Member(AbstractBaseUser, PermissionsMixin):
         full_name = ''
         if self.title:
             full_name += ' '
-            full_name += self.title.post
+            full_name += self.title.namn
         full_name += ' '
         full_name +=self.first_name +" "+self.last_name
         return full_name

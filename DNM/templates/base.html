@@ -113,7 +113,7 @@
 
                         <li><a href={% url 'UserInformation:users' %}>Medlemmar</a></li>
                         <li><a href={% url 'UserInformation:profile' user.id %}>Profil</a></li>
-                        <li><a href={% url 'statistics' %}>Stats</a></li>
+{#                        <li><a href={% url 'statistics' %}>Stats</a></li>#}
                     {% endif %}
                     <li style="float: right"><a href="#" data-toggle="modal" data-target="#ajax-modal"
                                                 data-href={% url 'UserInformation:new' %}>Ny medlem</a></li>

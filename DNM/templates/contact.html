@@ -16,7 +16,7 @@
 
                 <span class="help-block">
                     <a href={% url 'UserInformation:profile' member.id %}>
-                        Br {{ member.title }} {{ member.last_name }}
+                        {{ member.get_full_name }} 
                     </a>
                     - {{ member.email }} {{ member.phone }}
                 </span>

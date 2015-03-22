@@ -71,9 +71,6 @@ def view(request, event_id):
 
     event = Event.objects.get(pk=event_id)
     SignUpFormSet = formset_factory(SignUpForm, extra=event.avec + 1, max_num=event.avec + 1)
-    if not event.visibleFor(request.user.grad.id) and not request.user.is_superuser:
-        messages.add_message(request, messages.ERROR, 'Du har inte rätt att se detta event')
-        return HttpResponseRedirect(reverse('base', args=()))
 
     signUps = SignUp.objects.filter(event=event).order_by('created')
     signUp = SignUp()
