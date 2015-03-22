@@ -28,7 +28,7 @@ class Grad(models.Model):
 
 class Title(models.Model):
     def __unicode__(self):
-        return self.namn
+        return self.namn or u''
     styrelsePost = models.NullBooleanField(max_length=200, verbose_name=u'Styrelsepost')
 
     namn = models.CharField(max_length=200, verbose_name=u'Titel')
