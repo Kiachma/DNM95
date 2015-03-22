@@ -13,7 +13,7 @@ class Grad(models.Model):
     def __unicode__(self):
         return self.grad
 
-    grad = models.CharField(max_length=200, verbose_name='Grad')
+    grad = models.CharField(max_length=200, verbose_name='Noblett')
     order = models.SmallIntegerField(verbose_name='Order')
 
     def isGuest(self):
