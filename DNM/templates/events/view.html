@@ -111,23 +111,24 @@
         </div>
     </div>
     {% if signUps %}
-        <table table data-mode-switch data-mode="swipe" class=" tablesaw tablesaw-swipe table table-striped table-hover"
-               data-sortable data-minimap id="signUps">
+          <table id="user-table"  data-tablesaw-mode="swipe"
+                   class=" tablesaw table table-striped table-hover"
+                   data-tablesaw-sortable data-tablesaw-minimap data-tablesaw-mode-switchid="signUps">
             <thead>
             <tr>
                 </ol>
-                <th data-sortable-col data-priority="persist" data-sortable-default-col>#</th>
+                <th data-tablesaw-sortable-col data-tablesaw-priority="persist" data-tablesaw-sortable-default-col>#</th>
 
-                <th data-sortable-col data-priority="persist">Namn</th>
+                <th data-tablesaw-sortable-col data-tablesaw-priority="persist">Namn</th>
 
                 {% if user.title.styrelsePost or user.is_superuser or user == event.member %}
-                    <th data-sortable-col data-priority="2">Diet</th>
-                    <th data-sortable-col data-priority="2">Email</th>
+                    <th data-tablesaw-sortable-col data-priority="2">Diet</th>
+                    <th data-tablesaw-sortable-col data-priority="2">Email</th>
                     {% for text_field in text_fields %}
-                        <th data-sortable-col data-priority="2">{{ text_field.textField.label }}</th>
+                        <th data-tablesaw-sortable-col data-priority="2">{{ text_field.textField.label }}</th>
                     {% endfor %}
                     {% for check_box in check_boxes %}
-                        <th data-sortable-col data-priority="2">{{ check_box.checkbox.label }}</th>
+                        <th data-tablesaw-sortable-col data-priority="2">{{ check_box.checkbox.label }}</th>
                     {% endfor %}
                     <th data-priority="4">Radera</th>
                 {% endif %}

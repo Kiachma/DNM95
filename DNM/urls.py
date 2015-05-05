@@ -46,7 +46,6 @@ urlpatterns = patterns('',
                        url(r'^$', views.base, name="base"),
 
 
-                       url(r'^photologue/', include('photologue.urls', namespace='photologue')),
                        # (r'^admin/(.*)', admin.site.root),
 
 

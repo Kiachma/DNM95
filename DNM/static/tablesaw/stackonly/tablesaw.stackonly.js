@@ -1,6 +1,6 @@
-/*! Tablesaw - v0.1.3 - 2014-05-27
+/*! Tablesaw - v1.0.4 - 2015-02-19
 * https://github.com/filamentgroup/tablesaw
-* Copyright (c) 2014 Filament Group; Licensed MIT */
+* Copyright (c) 2015 Filament Group; Licensed MIT */
 ;(function( $ ) {
 	var div = document.createElement('div'),
 		all = div.getElementsByTagName('i'),
@@ -12,7 +12,9 @@
 	}
 
 	// Cut the mustard
-	if( !( 'querySelector' in document ) || ( window.blackberry && !window.WebKitPoint ) || window.operamini ) {
+	if( !( 'querySelector' in document ) ||
+			( window.blackberry && !window.WebKitPoint ) ||
+			window.operamini ) {
 		return;
 	} else {
 		$doc.addClass( 'tablesaw-enhanced' );
@@ -25,6 +27,28 @@
 	}
 
 })( jQuery );
+/*
+* tablesaw: A set of plugins for responsive tables
+* Stack and Column Toggle tables
+* Copyright (c) 2013 Filament Group, Inc.
+* MIT License
+*/
+
+if( typeof Tablesaw === "undefined" ) {
+	Tablesaw = {
+		i18n: {
+			modes: [ 'Stack', 'Swipe', 'Toggle' ],
+			columns: 'Col<span class=\"a11y-sm\">umn</span>s',
+			columnBtnText: 'Columns',
+			columnsDialogError: 'No eligible columns.',
+			sort: 'Sort'
+		}
+	};
+}
+if( !Tablesaw.config ) {
+	Tablesaw.config = {};
+}
+
 ;(function( $ ) {
 	var pluginName = "table",
 		classes = {
@@ -32,10 +56,11 @@
 		},
 		events = {
 			create: "tablesawcreate",
-			destroy: "tablesawdestroy"
+			destroy: "tablesawdestroy",
+			refresh: "tablesawrefresh"
 		},
 		defaultMode = "stack",
-		initSelector = "table[data-mode],table[data-sortable]";
+		initSelector = "table[data-tablesaw-mode],table[data-tablesaw-sortable]";
 
 	var Table = function( element ) {
 		if( !element ) {
@@ -45,7 +70,7 @@
 		this.table = element;
 		this.$table = $( element );
 
-		this.mode = this.$table.attr( "data-mode" ) || defaultMode;
+		this.mode = this.$table.attr( "data-tablesaw-mode" ) || defaultMode;
 
 		this.init();
 	};
@@ -58,7 +83,12 @@
 
 		this.createToolbar();
 
-		// Add header cells
+		var colstart = this._initCells();
+
+		this.$table.trigger( events.create, [ this, colstart ] );
+	};
+
+	Table.prototype._initCells = function() {
 		var colstart,
 			thrs = this.table.querySelectorAll( "thead tr" ),
 			self = this;
@@ -82,11 +112,16 @@
 				// Store "cells" data on header as a reference to all cells in the same column as this TH
 				this.cells = self.$table.find("tr").not( $( thrs ).eq( 0 ) ).not( this ).children( sel );
 				coltally++;
-
 			});
 		});
 
-		this.$table.trigger( events.create, [ this.mode, colstart ] );
+		return colstart;
+	};
+
+	Table.prototype.refresh = function() {
+		this._initCells();
+
+		this.$table.trigger( events.refresh );
 	};
 
 	Table.prototype.createToolbar = function() {
@@ -111,12 +146,14 @@
 			this.className = this.className.replace( /\bmode\-\w*\b/gi, '' );
 		});
 
-		$( window ).off( 'resize.' + this.$table.attr( 'id' ) );
+		var tableId = this.$table.attr( 'id' );
+		$( document ).unbind( "." + tableId );
+		$( window ).unbind( "." + tableId );
 
 		// other plugins
-		this.$table.trigger( events.destroy, [ this.mode ] );
+		this.$table.trigger( events.destroy, [ this ] );
 
-		this.$table.removeAttr( 'data-mode' );
+		this.$table.removeAttr( 'data-tablesaw-mode' );
 
 		this.$table.removeData( pluginName );
 	};
@@ -145,7 +182,8 @@
 
 	var classes = {
 		stackTable: 'tablesaw-stack',
-		cellLabels: 'tablesaw-cell-label'
+		cellLabels: 'tablesaw-cell-label',
+		cellContentLabels: 'tablesaw-cell-content'
 	};
 
 	var data = {
@@ -153,7 +191,8 @@
 	};
 
 	var attrs = {
-		labelless: 'data-no-labels'
+		labelless: 'data-tablesaw-no-labels',
+		hideempty: 'data-tablesaw-hide-empty'
 	};
 
 	var Stack = function( element ) {
@@ -161,6 +200,7 @@
 		this.$table = $( element );
 
 		this.labelless = this.$table.is( '[' + attrs.labelless + ']' );
+		this.hideempty = this.$table.is( '[' + attrs.hideempty + ']' );
 
 		if( !this.labelless ) {
 			// allHeaders references headers, plus all THs in the thead, which may include several rows, or not
@@ -179,14 +219,20 @@
 
 		// get headers in reverse order so that top-level headers are appended last
 		var reverseHeaders = $( this.allHeaders );
-
+		var hideempty = this.hideempty;
+		
 		// create the hide/show toggles
 		reverseHeaders.each(function(){
-			var $cells = $( this.cells ),
+			var $t = $( this ),
+				$cells = $( this.cells ).filter(function() {
+					return !$( this ).parent().is( "[" + attrs.labelless + "]" ) && ( !hideempty || !$( this ).is( ":empty" ) );
+				}),
 				hierarchyClass = $cells.not( this ).filter( "thead th" ).length && " tablesaw-cell-label-top",
-				text = $(this).text();
+				// TODO reduce coupling with sortable
+				$sortableButton = $t.find( ".tablesaw-sortable-btn" ),
+				html = $sortableButton.length ? $sortableButton.html() : $t.html();
 
-			if( text !== "" ){
+			if( html !== "" ){
 				if( hierarchyClass ){
 					var iteration = parseInt( $( this ).attr( "colspan" ), 10 ),
 						filter = "";
@@ -194,9 +240,10 @@
 					if( iteration ){
 						filter = "td:nth-child("+ iteration +"n + " + ( colstart ) +")";
 					}
-					$cells.filter( filter ).prepend( "<b class='" + classes.cellLabels + hierarchyClass + "'>" + text + "</b>"  );
+					$cells.filter( filter ).prepend( "<b class='" + classes.cellLabels + hierarchyClass + "'>" + html + "</b>"  );
 				} else {
-					$cells.prepend( "<b class='" + classes.cellLabels + "'>" + text + "</b>"  );
+					$cells.wrapInner( "<span class='" + classes.cellContentLabels + "'></span>" );
+					$cells.prepend( "<b class='" + classes.cellLabels + "'>" + html + "</b>"  );
 				}
 			}
 		});
@@ -205,21 +252,24 @@
 	Stack.prototype.destroy = function() {
 		this.$table.removeClass( classes.stackTable );
 		this.$table.find( '.' + classes.cellLabels ).remove();
+		this.$table.find( '.' + classes.cellContentLabels ).each(function() {
+			$( this ).replaceWith( this.childNodes );
+		});
 	};
 
 	// on tablecreate, init
-	$( document ).on( "tablesawcreate", "table", function( e, mode, colstart ){
-		if( mode === 'stack' ){
-			var table = new Stack( this );
+	$( document ).on( "tablesawcreate", function( e, Tablesaw, colstart ){
+		if( Tablesaw.mode === 'stack' ){
+			var table = new Stack( Tablesaw.table );
 			table.init( colstart );
 		}
 
 	} );
 
-	$( document ).on( "tablesawdestroy", "table", function( e, mode ){
+	$( document ).on( "tablesawdestroy", function( e, Tablesaw ){
 
-		if( mode === 'stack' ){
-			$( this ).data( data.obj ).destroy();
+		if( Tablesaw.mode === 'stack' ){
+			$( Tablesaw.table ).data( data.obj ).destroy();
 		}
 
 	} );

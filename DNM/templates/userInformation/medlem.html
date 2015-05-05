@@ -1,6 +1,6 @@
 {% load url from future %}
 {% load widget_tweaks %}
-
+{% load filters %}
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -16,10 +16,17 @@
                     {{ hidden }}
                 {% endfor %}
                 {% for field in form.visible_fields %}
+                    {% if field|is_checkbox %}
+                      <div class="form-group {% if field.errors %} has-error {% endif %}">
+                        <label>{{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+                        {{ field }}{{ field.errors }}
+                    </div>
+                  {% else %}
                     <div class="form-group {% if field.errors %} has-error {% endif %}">
                         <label>{{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
                         {{ field|add_class:"form-control" }}{{ field.errors }}
                     </div>
+                      {% endif %}
                 {% endfor %}
 
             </div>

@@ -32,34 +32,40 @@
         </div>
         <div class="row">
         <div class="col-sm-12" id="userData">
-            <table id="user-table" data-mode-switch data-mode="swipe"
-                   class=" tablesaw tablesaw-swipe table table-striped table-hover"
-                   data-sortable data-minimap>
+            <table id="user-table"  data-tablesaw-mode="swipe"
+                   class=" tablesaw table table-striped table-hover"
+                   data-tablesaw-sortable data-tablesaw-minimap data-tablesaw-mode-switch>
                 <thead>
                 <tr>
-                     <th data-sortable-col data-priority="1">
+                     <th data-tablesaw-sortable-col data-tablesaw-priority="1">
                         Bild
                     </th>
-                    <th data-sortable-col data-sortable-default-col data-priority="persist">
+                    <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="persist">
                         Namn
                     </th>
-                    <th data-sortable-col data-priority="2">
-                        Grad
+                    <th data-tablesaw-sortable-col data-tablesaw-priority="2">
+                        Titel
                     </th>
-                    <th data-sortable-col data-priority="3">
+                    <th data-tablesaw-sortable-col data-tablesaw-priority="2">
+                        Noblett
+                    </th>
+                    <th data-tablesaw-sortable-col data-tablesaw-priority="2">
+                        Stämma
+                    </th>
+                    <th data-tablesaw-sortable-col data-tablesaw-priority="3">
                         Födelsetid
                     </th>
-                    <th data-sortable-col data-priority="3">
+                    <th data-tablesaw-sortable-col data-tablesaw-priority="3">
                         Telefonnummer
                     </th>
-                    <th data-sortable-col data-priority="3">
+                    <th data-tablesaw-sortable-col data-tablesaw-priority="3">
                         E-post
                     </th>
-                    <th data-sortable-col data-priority="3">
+                    <th data-tablesaw-sortable-col data-tablesaw-priority="3">
                         Postadress
                     </th>
                     {% if user.title.styrelsePost or user.is_superuser %}
-                        <th data-priority="1">
+                        <th data-tablesaw-priority="1">
                             Admin
                         </th>
                     {% endif %}
@@ -72,11 +78,16 @@
                              <img src="{% gravatar_url "user_.email 26" %}" class="img-rounded">
                         </td>
                         <td>
-                            <a href={% url 'UserInformation:profile' user_.id %}> {{ user_.get_full_name }}</a>
-
+                            <a href={% url 'UserInformation:profile' user_.id %}> {{ user_.get_short_name }}</a>
+                        </td>
+                        <td>
+                            {{ user_.title.namn }}
                         </td>
                         <td>
                             {{ user_.grad }}
+                        </td>
+                        <td>
+                            {{ user_.stamma }}
                         </td>
                         <td>
                             {{ user_.birthday|date:"d.m.Y" }}

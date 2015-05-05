@@ -33,6 +33,7 @@ class TextFieldXUserForm(ModelForm):
 
     class Meta:
         model = TextFieldXSignup
+        fields =('textfield',)
 
 
 class CheckBoxXUserForm(ModelForm):
@@ -42,3 +43,4 @@ class CheckBoxXUserForm(ModelForm):
 
     class Meta:
         model = CheckboxXSignUp
+        fields =('boolean',)

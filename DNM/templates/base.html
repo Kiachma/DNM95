@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" href="{{ STATIC_URL }}tablesaw/deps/dialog.css">
     <link rel="stylesheet" href="{{ STATIC_URL }}tablesaw/tablesaw.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/dropzone.css">
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -104,7 +105,7 @@
                 <ul class="navigation">
                     <li class="highlight"><a href="/">Hem</a></li>
                     <li><a id="Om" href={% url 'page' 'Om' %}>Om </a></li>
-                    <li><a id="Galleri" href=/photologue/gallery/>Galleri </a></li>
+                    <li><a id="Galleri" href="{% url 'gallery:album_list' %}">Galleri </a></li>
                     <li><a id="Klotter" href={% url 'klotter:klotterplanket' %}>Klotterplanket </a></li>
                     <li><a id="Kontakt" href={% url 'contact' %}>Kontakt </a></li>
 
@@ -113,7 +114,7 @@
 
                         <li><a href={% url 'UserInformation:users' %}>Medlemmar</a></li>
                         <li><a href={% url 'UserInformation:profile' user.id %}>Profil</a></li>
-{#                        <li><a href={% url 'statistics' %}>Stats</a></li>#}
+                        {#                        <li><a href={% url 'statistics' %}>Stats</a></li>#}
                     {% endif %}
                     <li style="float: right"><a href="#" data-toggle="modal" data-target="#ajax-modal"
                                                 data-href={% url 'UserInformation:new' %}>Ny medlem</a></li>
@@ -277,6 +278,7 @@
 {% endblock %}
 
 <script src="{{ STATIC_URL }}js/jquery.tap.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/dropzone.js"></script>
 </body>
 {% ajax_modal %}
 </html>

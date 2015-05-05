@@ -29,3 +29,10 @@ def get_range( value ):
     Instead of 3 one may use the variable set in the views
   """
   return range( value )
+
+from django import template
+from django.forms import CheckboxInput
+
+@register.filter(name='is_checkbox')
+def is_checkbox(field):
+  return field.field.widget.__class__.__name__ == CheckboxInput().__class__.__name__

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load widget_tweaks %}
+{% load thumbnail %}
+{% block title %}{{ album.title }}{% endblock %}
+{% block content %}
+    <!-- templates/gallery/photo_list.html -->
+
+    <div class="row col-lg-12">
+        <h2 class="page-header">{{ album.title }} <a class="btn btn-default pull-right"
+                                                     href={% url 'gallery:album_edit' album.id %}>Ändra album</a></h2>
+
+
+        {% if album.description %}{{ album.description|safe }}{% endif %}
+        <div class="photo-gallery">
+            <ul id="gallery">
+                {% for photo in object_list reversed %}
+                    <li class="loaded">
+                        <a href="{{ photo.file.url }}">
+                            {% thumbnail photo.file.url "100x100" crop="center" as im %}
+                                <img class="thumbnail" src="{{ im.url }}" width="{{ im.width }}"
+                                     height="{{ im.height }}">
+                            {% endthumbnail %}</a>
+
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="row col-lg-12">
+        <h2 class="page-header">Ladda upp bilder</h2>
+
+        <p class="text-danger">Vänligen skala ned bilderna till < 1MB/bild.</p>
+
+        <form id="add-photos" action="{% url 'gallery:ajax_photo_upload_view' album.id %}" class="dropzone">
+            {% csrf_token %}
+        </form>
+    </div>
+    <script>
+        $('#gallery').photobox('a');
+        // or with a fancier selector and some settings, and a callback:
+        {#        $('#gallery').photobox('a', { thumbs:true, time:0 }, imageLoaded);#}
+        {#        function imageLoaded(){#}
+        {#            console.log('image has been loaded...');#}
+        {#        }#}
+    </script>
+
+{% endblock %}

@@ -134,8 +134,7 @@ INSTALLED_APPS = (
     'DNM.apps.static_pages',
     'DNM.apps.templatetags',
 
-
-    'photologue',
+        'taggit',
 
     'sortedm2m',
     'django_summernote',

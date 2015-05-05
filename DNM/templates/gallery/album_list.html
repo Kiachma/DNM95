@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load widget_tweaks %}
+{% block title %}Bildgalleri{% endblock %}
+{% block content %}
+    {% load thumbnail %}
+
+    <h1>Album<a class="btn btn-success pull-right" href={% url 'gallery:album_create' %}>Lägg till album </a></h1>
+
+    {% for album in object_list reversed%}
+        <a href="{% url 'gallery:photo_list' album.id %}">
+            <h2>{{ album.title }}</h2>
+            {% if album.cover_photo %}
+                {% thumbnail album.cover_photo.file.url "100x100" crop="center" as im %}
+                    <img class="thumbnail" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                {% endthumbnail %}
+            {% endif %}
+
+        </a>
+    {% empty %}
+        Inga album ännu
+    {% endfor %}
+
+
+{% endblock %}
