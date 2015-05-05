@@ -555,3 +555,7 @@ border-bottom-left-radius: 0px;
 
     margin-bottom:0px
 }
+
+.tablesaw {
+  word-wrap: break-word;
+}
