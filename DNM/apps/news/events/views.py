@@ -20,7 +20,7 @@ from DNM.apps.signup.forms import *
 from DNM.apps.signup.models import *
 import itertools
 from django.db.models import Q
-
+from django.core.mail import send_mail, EmailMessage
 def get_check_boxes_for_event(event_id):
     checkbox_x_events = CheckboxXEvent.objects.filter(event__id=event_id)
     checkBox_ids = []
@@ -98,8 +98,6 @@ def view(request, event_id):
     formset = SignUpFormSet(initial=initialData)
     check_boxes = CheckboxXEvent.objects.filter(event_id__exact=event.id)
     text_fields = TextFieldXEvent.objects.filter(event_id__exact=event.id)
-    sign_up_text_fields = TextFieldXSignup.objects.filter(signUp__event=event_id)
-    sign_up_check_boxes = TextFieldXSignup.objects.filter(signUp__event=event_id)
 
     count = {}
     count['baryton'] = len(signUps.filter(Q(member__stamma__namn="Baryton")))
@@ -107,8 +105,7 @@ def view(request, event_id):
     count['first'] = len(signUps.filter(Q(member__stamma__namn="I Tenor")))
     count['sec'] = len(signUps.filter(Q(member__stamma__namn="II Tenor")))
 
-    c = {'event': event, 'signUps': signUps, 'formset': formset, 'check_boxes': check_boxes, 'text_fields': text_fields,
-         'sign_up_text_fields': sign_up_text_fields, 'sign_up_check_boxes': sign_up_check_boxes, 'iterator': iterator, 'count' : count}
+    c = {'event': event, 'signUps': signUps, 'formset': formset, 'check_boxes': check_boxes, 'text_fields': text_fields, 'iterator': iterator, 'count' : count}
     return render_to_response('events/view.html', c, RequestContext(request))
 
 
@@ -141,6 +138,21 @@ def save_check_box(event, check_box_form_set):
             CheckboxXEvent.objects.filter(checkbox=form.instance.id).delete()
             CheckboxXSignUp.objects.filter(checkbox=form.instance.id).delete()
             Checkbox.delete(form.instance)
+
+def mail_participants(request,event):
+    emails_qs = SignUp.objects.filter(event_id=event.id).values('email').distinct()
+    emails = list([entry['email'] for entry in emails_qs])
+
+    message = "http://dnm.kiachma.webfactional.com: Evenemanget " + event.name + " uppdaterades"
+    linkmessage =  "http://www." + request.META['HTTP_HOST'] + reverse('event:view', args=(event.id,))
+    msg = EmailMessage(message,
+    "Evenemanget " + event.name +u" som du är anmäld till har uppdaterats. Vänligen gå in på "+linkmessage+u" och uppdatera din anmälan."+ "\r\n"+ "\r\n"+
+    "Mvh"+ "\r\n"+
+    "Br Bot",
+    'noreply@dnm.kiachma.webfactional.com',
+    emails,
+    headers={'Reply-To': 'noreply@dnm.kiachma.webfactional.com'})
+    msg.send(fail_silently=False)
 
 
 @login_required
@@ -176,6 +188,7 @@ def save(request, event_id):
             save_text_fields(event, text_field_form_set)
             save_check_box(event, check_box_form_set)
             messages.add_message(request, messages.SUCCESS, 'Evenemang sparat')
+            mail_participants(request,event)
             return HttpResponseRedirect(reverse('event:view', args=(event.id,)))
     else:
         form = EventForm

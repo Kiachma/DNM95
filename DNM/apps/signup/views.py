@@ -91,3 +91,40 @@ def Remove(request, event_id, signup_id):
     else:
         messages.add_message(request, messages.ERROR, 'Du har tyvärr inte rättigheter att ta bort denna anmälan, vänligen kontakta styrelsen')
     return HttpResponseRedirect(reverse('event:view', args=(event_id,)))
+
+@login_required
+def Edit(request, signup_id):
+    u = request.user
+    signup = SignUp.objects.get(pk=signup_id)
+    event = signup.event
+    if request.method == 'POST':
+        if (u.title and u.title.styrelsePost) or u.is_superuser or (u==signup.member and event.deadline>datetime.utcnow().replace(tzinfo=pytz.utc)):
+
+
+            form = SignUpForm(request.POST, instance=signup)
+            signup = form.save(commit=False)
+            signup.save()
+            event = signup.event
+            delete_extra_fields(signup)
+            save_user_checkboxes(request, event, signup, 0)
+            save_user_text_fields(request, event, signup, 0)
+            messages.add_message(request, messages.SUCCESS, 'Anmälan uppdaterad')
+            return HttpResponseRedirect(reverse('event:view', args=(signup.event_id,)))
+        else:
+            messages.add_message(request, messages.ERROR, 'Du har tyvärr inte rättigheter att ta ändra denna anmälan, vänligen kontakta styrelsen')
+            return HttpResponseRedirect(reverse('event:view', args=(event.id,)))
+    form = SignUpForm(instance=signup)
+    event = signup.event
+    event_text_fields = TextFieldXEvent.objects.filter(event_id__exact=event.id)
+    event_check_boxes = CheckboxXEvent.objects.filter(event_id__exact=event.id)
+    text_fields = []
+    check_boxes = []
+    for textfield in event_text_fields:
+        tmp,_ =TextFieldXSignup.objects.get_or_create(textfield_id=textfield.id , signUp_id=signup_id)
+        text_fields.append(tmp)
+    for checkbox in event_check_boxes:
+        tmp,_=CheckboxXSignUp.objects.get_or_create(checkbox_id=checkbox.id, signUp_id=signup_id)
+        check_boxes.append(tmp)
+
+    c = {'form': form, 'signup': signup,'check_boxes': check_boxes, 'text_fields': text_fields,}
+    return render(request, 'signup/edit.html', c)

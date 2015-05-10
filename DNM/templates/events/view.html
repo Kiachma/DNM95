@@ -121,7 +121,6 @@
 
                 <th data-tablesaw-sortable-col data-tablesaw-priority="persist">Namn</th>
 
-                {% if user.title.styrelsePost or user.is_superuser or user == event.member %}
                     <th data-tablesaw-sortable-col data-priority="2">Diet</th>
                     <th data-tablesaw-sortable-col data-priority="2">Email</th>
                     {% for text_field in text_fields %}
@@ -131,7 +130,6 @@
                         <th data-tablesaw-sortable-col data-priority="2">{{ check_box.checkbox.label }}</th>
                     {% endfor %}
                     <th data-priority="4">Radera</th>
-                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -173,13 +171,16 @@
                                     {% endfor %}
                                 </td>
                             {% endfor %}
-                            <td><a class="btn btn-danger"
-                                   href="{% url 'signup:remove' signUp.id event.id %}" onclick="return confirm('Är du säker på att du vill ta bort anmälan')" href="{% url 'event:delete' event.id %}" >Radera</a>
+                            <td>
+                                 <a class="btn btn-danger"
+                                    href="{% url 'signup:remove' signUp.id event.id %}" onclick="return confirm('Är du säker på att du vill ta bort anmälan')" >Radera</a>
+                                <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#ajax-modal"
+                                   data-href="{% url 'signup:edit' signUp.id  %}" >Ändra</a>
                             </td>
                         {% endif %}
                     </tr>
                     {% if forloop.counter == event.maxSignUps %}
-                        <th colspan="5">
+                        <th colspan="0">
                             <h5>Reservlista:</h5>
                         </th>
                     {% endif %}
@@ -221,8 +222,11 @@
                                     {% endfor %}
                                 </td>
                             {% endfor %}
-                            <td><a class="btn btn-danger"
-                                   href="{% url 'signup:remove' signUp.id event.id onclick="return confirm('Är du säker på att du vill ta bort anmälan')"%}">Radera</a>
+                            <td>
+                                <a class="btn btn-danger"
+                                    href="{% url 'signup:remove' signUp.id event.id %}" onclick="return confirm('Är du säker på att du vill ta bort anmälan')" >Radera</a>
+                                <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#ajax-modal"
+                                   data-href="{% url 'signup:edit' signUp.id  %}" >Ändra</a>
                             </td>
                         {% endif %}
                     </tr>
@@ -238,6 +242,7 @@
 {% endblock %}
 {% block scripts %}
     <script type="text/javascript">
+    setTimeout(function() { jQuery('#modal').modal('hide'); }, 1000); $('body').on('hidden.bs.modal', '.modal', function () { $(this).removeData('bs.modal'); });
         $(function () {
             $("[rel='tooltip']").tooltip();
         });

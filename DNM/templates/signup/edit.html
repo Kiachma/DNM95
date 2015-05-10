@@ -1,0 +1,78 @@
+{% load url from future %}
+{% load widget_tweaks %}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <form id="signupForm" method='post' class="form" role="form"
+              action="{% url 'signup:edit' signup.id %}">{% csrf_token %}
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Ändra anmälan för {{ signup.name }}</h4>
+            </div>
+            <div class="modal-body">
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in form %}
+                    <div class="form-group"  {% if field.errors %} has-error {% endif %} >
+                        <label>
+                            {{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
+
+                        <div>
+                            {{ field|add_class:"form-control" }}{{ field.errors }}
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% for text_field in text_fields %}
+                    <div class="form-group"  {% if field.errors %} has-error {% endif %} >
+                        <label
+                                for="textfield_{{ text_field.textfield.id }}_0">{{ text_field.textfield.textField.label }}</label>
+
+                        <div>
+                            <input class="form-control" type="text"
+                                   id="textfield_{{ text_field.textfield.id }}_0"
+                                   value="{{ text_field.text }}"
+                                   name="textfield_{{ text_field.textfield.id }}_0"/>{{ field.errors }}
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for checkbox in check_boxes %}
+                    <div class="form-group"  {% if field.errors %} has-error {% endif %} >
+                        <div class="checkbox">
+                            <label
+                                    for="checkbox_{{ checkbox.checkbox.id }}_0">
+
+
+                                <input type="checkbox"
+                                       id="checkbox_{{ checkbox.checkbox.id }}_0"
+
+                                       {% if checkbox.boolean %}checked{% endif %}
+                                       name="checkbox_{{ checkbox.checkbox.id }}_0"/>{{ checkbox.checkbox.checkbox.label }}{{ field.errors }}
+
+                            </label>
+                        </div>
+
+
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="modal-footer">
+                <input class="btn btn-default" type="submit" value="Spara"/>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% block scripts %}
+    <script>
+        var form_options = {
+            target: '#modal', success: function () {
+            }
+        }
+        $('#memberform').ajaxForm(form_options);
+    </script>
+{% endblock %}
