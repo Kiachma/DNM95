@@ -48,8 +48,10 @@ def Save(request, event_id):
     SignUpFormSet = formset_factory(SignUpForm, )
     if request.method == 'POST':
         formset = SignUpFormSet(request.POST, request.FILES)
-
-        if formset.is_valid():
+        for idx,extraform in enumerate(formset.forms):
+            if idx!=0:
+                extraform.empty_permitted =True
+        if formset.is_valid() :
             counter = 0
             for form in formset.forms:
 
