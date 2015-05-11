@@ -24,8 +24,8 @@ class SignUp(models.Model):
 class Checkbox(models.Model):
     def __unicode__(self):
         return self.label
-
-    label = models.CharField(max_length=50, blank=True, verbose_name='Checkbox lable' ,default='')
+    hidden =models.BooleanField(verbose_name='Endast synlig i tabellen för styrelsen')
+    label = models.CharField(max_length=50, blank=True, verbose_name='Checkbox titel' ,default='')
 
 
 class CheckboxXEvent(models.Model):
@@ -45,8 +45,8 @@ class CheckboxXSignUp(models.Model):
 class Textfield(models.Model):
     def __unicode__(self):
         return self.label
-
-    label = models.CharField(max_length=50, blank=True, verbose_name='Textfält label')
+    hidden =models.BooleanField(verbose_name='Endast synlig i tabellen för styrelsen')
+    label = models.CharField(max_length=50, blank=True, verbose_name='Textfält titel')
 
 
 class TextFieldXEvent(models.Model):

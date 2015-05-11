@@ -17,13 +17,13 @@ class SignUpForm(ModelForm):
 class TextfieldForm(ModelForm):
     class Meta:
         model = Textfield
-        exclude = ('id',)
+        fields = ('label','hidden')
 
 
 class CheckboxForm(ModelForm):
     class Meta:
         model = Checkbox
-        exclude = ('id',)
+        fields = ('label','hidden')
 
 
 class TextFieldXUserForm(ModelForm):
