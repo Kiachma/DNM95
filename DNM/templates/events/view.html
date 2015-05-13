@@ -121,21 +121,20 @@
                data-tablesaw-sortable data-tablesaw-minimap data-tablesaw-mode-switch id="signUps">
             <thead>
             <tr>
-                </ol>
                 <th data-tablesaw-sortable-col data-tablesaw-priority="persist" data-tablesaw-sortable-default-col>#
                 </th>
 
                 <th data-tablesaw-sortable-col data-tablesaw-priority="persist">Namn</th>
 
-                <th data-tablesaw-sortable-col data-priority="2">Diet</th>
-                <th data-tablesaw-sortable-col data-priority="2">Email</th>
+                <th data-tablesaw-sortable-col data-tablesaw-priority="2">Diet</th>
+                <th data-tablesaw-sortable-col data-tablesaw-priority="2">Email</th>
                 {% for text_field in text_fields %}
-                    <th data-tablesaw-sortable-col data-priority="2">{{ text_field.textField.label }}</th>
+                    <th data-tablesaw-sortable-col data-tablesaw-priority="2">{{ text_field.textField.label }}</th>
                 {% endfor %}
                 {% for check_box in check_boxes %}
-                    <th data-tablesaw-sortable-col data-priority="2">{{ check_box.checkbox.label }}</th>
+                    <th data-tablesaw-sortable-col data-tablesaw-priority="2">{{ check_box.checkbox.label }}</th>
                 {% endfor %}
-                <th data-priority="4">Radera</th>
+                <th data-tablesaw-priority="4">Radera</th>
             </tr>
             </thead>
             <tbody>
