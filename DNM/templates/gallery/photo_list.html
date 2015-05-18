@@ -18,7 +18,10 @@
                     <li class="loaded">
                         <a href="{{ photo.file.url }}">
                             {% thumbnail photo.file.url "100x100" crop="center" as im %}
-                                <img class="thumbnail" src="{{ im.url }}" width="{{ im.width }}"
+
+                                <img class="thumbnail {%  if photo.id == album.cover_photo.id%}
+                                    cover-photo
+                                {% endif %}" src="{{ im.url }}" width="{{ im.width }}"
                                      height="{{ im.height }}">
                             {% endthumbnail %}</a>
 

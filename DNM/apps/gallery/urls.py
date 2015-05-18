@@ -16,4 +16,6 @@ urlpatterns = patterns('',
 
     url(r'^album_add/$', views.AlbumCreate.as_view(), name='album_create'),
     url(r'^album_edit/(?P<pk>\d+)$', views.AlbumEdit.as_view(), name='album_edit'),
+    url(r'^set_cover_photo/(?P<album_id>\d+)/(?P<photo_id>\d+)$', views.set_cover_photo, name='set_cover_photo'),
+
     )

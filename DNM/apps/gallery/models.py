@@ -8,8 +8,8 @@ from django.contrib.auth.models import *
 class Album(TimeStampedModel):
     def __unicode__(self):
         return self.title
-    title = models.CharField(max_length=250)
-    description = models.TextField(blank=True, null=True)
+    title = models.CharField(max_length=250, verbose_name=u'Titel')
+    description = models.TextField(blank=True, null=True, verbose_name=u'Beskrivning')
     cover_photo = models.ForeignKey('Photo', related_name='+', blank=True,
                                     null=True)
     is_public = models.BooleanField(default=True)

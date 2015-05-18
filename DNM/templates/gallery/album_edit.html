@@ -1,11 +1,12 @@
-
 {% extends "base.html" %}
 {% load url from future %}
 {% load widget_tweaks %}
+{% load thumbnail %}
+
 {% block title %}Album{% endblock %}
 {% block content %}
- <form action="{% url 'gallery:album_edit' album.id %}" method="post">{% csrf_token %}
-     {% for field in form %}
+    <form action="{% url 'gallery:album_edit' album.id %}" method="post">{% csrf_token %}
+        {% for field in form %}
             <div class="form-group {% if field.errors %} has-error {% endif %}">
                 <label>{{ field.label }}{% if field.field.required %} * {% endif %}{{ field.errors }}</label>
                 {% if field|widget_type == 'summernotewidget' %}
@@ -15,6 +16,19 @@
                 {% endif %}
             </div>
         {% endfor %}
-    <input class="btn btn-success" type="submit" value="Spara" />
-</form>
+        <input class="btn btn-success" type="submit" value="Spara"/>
+<h3>Välj pärmbild</h3>
+        {% for photo in album.photo_set.all %}
+                <a href="{% url 'gallery:set_cover_photo'  album.id photo.id %}" style="display: inline-block">
+                    {% thumbnail photo.file.url "100x100" crop="center" as im %}
+
+                        <img class="thumbnail {% if photo.id == album.cover_photo.id %}
+                                    cover-photo
+                                {% endif %}" src="{{ im.url }}" width="{{ im.width }}"
+                             height="{{ im.height }}">
+                    {% endthumbnail %}
+                </a>
+
+        {% endfor %}
+    </form>
 {% endblock %}

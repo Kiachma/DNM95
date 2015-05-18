@@ -1,4 +1,6 @@
 # gallery/views.py
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 
 from django.views.generic import View, ListView
 from django.views.generic.edit import CreateView,UpdateView
@@ -80,3 +82,9 @@ class AjaxPhotoUploadView(LoginRequiredMixin,
         return self.render_json_response(response_dict, status=200)
 
 
+def set_cover_photo(request, album_id,photo_id):
+    album =Album.objects.get(pk=album_id)
+    album.cover_photo=Photo.objects.get(pk=photo_id)
+    album.save()
+
+    return HttpResponseRedirect(reverse('gallery:album_edit', args=(album_id)))
