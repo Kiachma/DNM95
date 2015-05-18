@@ -75,7 +75,7 @@ class Member(AbstractBaseUser, PermissionsMixin):
     grad = models.ForeignKey(Grad, blank=False, default=1)
     title = models.ForeignKey(Title, blank=True, null=True, verbose_name=u'Titel')
     stamma = models.ForeignKey(Stamma, blank=True, null=True, verbose_name=u'Stämma')
-
+    date_joined = models.DateTimeField('date joined', default=timezone.now)
     phone = models.CharField(max_length=200, blank=True, verbose_name=u'Telefonnummer')
     address = models.CharField(max_length=200, blank=True, verbose_name=u'Postadress')
     is_staff = models.BooleanField('staff status', default=False,
