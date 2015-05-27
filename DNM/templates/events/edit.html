@@ -10,11 +10,6 @@
     <script src="{{ STATIC_URL }}js/datepicker.js"></script>
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css" type="text/css"
           rel="stylesheet"/>
-    <script type="text/javascript">
-        $(function () {
-            $(".datePicker").datetimepicker();
-        });
-    </script>
 
     <h3> {{ event.name }}</h3>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
@@ -104,7 +99,14 @@
 
         <input class="btn btn-default" type="submit" value="Spara"/>
     </form>
-    <script>
+
+
+{% endblock %}
+ {% block scripts %}
+ <script>
+     $(document).ready(function () {
+            $('.datepicker').datetimepicker({dateFormat: 'dd.mm.yy'});
+        });
         {#        Clone textfield functionality#}
         $('#add_textfield').click(function () {
             cloneMore('div.textfield:last', 'textFields');
@@ -150,5 +152,4 @@
             SelectFilter.init(this.id, "grader", 0, "/media/");
         });
     </script>
-
 {% endblock %}
