@@ -278,3 +278,5 @@ SUMMERNOTE_CONFIG = {
 
 
 }
+
+DATE_INPUT_FORMATS=['%d.%m.%Y',]

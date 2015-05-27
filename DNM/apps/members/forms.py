@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from django.forms import ModelForm, CharField, PasswordInput, Select, Textarea,DateInput
+from django.forms import ModelForm, CharField, PasswordInput, Select, Textarea,DateInput,DateField
 from DNM.apps.overrides.widgets import InlineCheckboxSelectMultiple
 from DNM.apps.members.models import *
 from widgets import AdvancedFileInput
@@ -49,6 +49,7 @@ class MemberFormMedlem(ModelForm):
         }
 
 class MemberFormKontakt(ModelForm):
+    birthday = DateField(input_formats=('%d.%m.%Y',),widget=DateInput(format="%d.%m.%Y"))
     def __init__(self, *args, **kwargs):
         super(MemberFormKontakt, self).__init__(*args, **kwargs)
         if self.instance.id:
@@ -69,7 +70,6 @@ class MemberFormKontakt(ModelForm):
         widgets = {
             'password': PasswordInput(),
             'address': Textarea(attrs={'cols': 80, 'rows': 5}),
-            'birthday':DateInput()
         }
 
 

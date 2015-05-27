@@ -85,11 +85,9 @@
 
 
                         <div class="col-xs-10">
-                            <div class="checkbox">
-                                <input class="form-control" type="checkbox"
+                                <input class="switch-checkbox" type="checkbox" checked
                                        id="checkbox_{{ checkbox.id }}_{{ forloop.parentloop.counter }}"
                                        name="checkbox_{{ checkbox.id }}_{{ forloop.parentloop.counter }}"/>{{ field.errors }}
-                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -348,6 +346,10 @@
                 // We actually need this to be a typical hyperlink
             });
         });
+    $.fn.bootstrapSwitch.defaults.onText = 'Ja';
+    $.fn.bootstrapSwitch.defaults.offText = 'Nej';
+    $(".switch-checkbox").bootstrapSwitch();
+
     </script>
 
 {% endblock %}
