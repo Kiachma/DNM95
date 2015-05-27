@@ -1,19 +1,20 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% load i18n %}
 {% if text %}
-    {% block title %} Statistik{% endblock %}
+    {% block title %} {% trans "Statistik"%}{% endblock %}
 {% endif %}
 
 
 
 {% block content %}
-    <p>Anmälningar / Epost </p>
+    <p>{% trans "Anmälningar / Epost"%} </p>
 {#    {% if valueMap %}#}
     <canvas id="signUps" width="600" height="400"></canvas>
 {#    {% endif %}#}
-    <p>Klotter / Skribent </p>
+    <p>{% trans "Klotter / Skribent"%} </p>
     <canvas id="klotter" width="600" height="400"></canvas>
-    <p>Gradfördeling</p>
+    <p>{% trans "Gradfördeling"%}</p>
     <canvas id="grader" width="400" height="400"></canvas>
 
     <script>

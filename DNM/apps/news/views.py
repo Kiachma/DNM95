@@ -10,7 +10,7 @@ from django.contrib.auth import get_user
 from DNM.apps.news.models import News
 
 from DNM.apps.news.forms import NewsForm
-
+from django.utils.translation import ugettext as _
 
 @login_required
 @user_passes_test(lambda u: u.title and u.title.styrelsePost or u.is_superuser )
@@ -42,13 +42,13 @@ def save(request, news_id):
             news = form.save(commit=False)
             news.member=get_user(request)
             news.save()
-            messages.add_message(request, messages.SUCCESS, 'Nyhet sparad')
+            messages.add_message(request, messages.SUCCESS, _('Nyhet sparad'))
             return render_to_response('news/view.html', {'news': news}, RequestContext(request))
     else:
         form = NewsForm
     news=News()
     c = {'form': form,'news': news}
-    messages.add_message(request, messages.ERROR, 'Åtgärden misslyckades')
+    messages.add_message(request, messages.ERROR, _('Åtgärden misslyckades'))
     return render_to_response('news/edit.html', c, RequestContext(request))
 
 
@@ -57,7 +57,7 @@ def save(request, news_id):
 def delete(request, news_id):
     news = News.objects.get(pk=news_id)
     News.delete(news)
-    messages.add_message(request, messages.SUCCESS, 'Nyhet borttagen')
+    messages.add_message(request, messages.SUCCESS, _('Nyhet borttagen'))
     return HttpResponseRedirect(reverse('base'))
 
 

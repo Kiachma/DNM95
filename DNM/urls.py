@@ -64,6 +64,8 @@ urlpatterns = patterns('',
                        (r'^user/password/done/$',
                         'django.contrib.auth.views.password_reset_complete'),
                        (r'^summernote/', include('django_summernote.urls')),
+                        url(r'^changeLanguage/(?P<language_code>\w+)', views.changeLanguage ,name="changeLanguage"),
+
 )
 if settings.DEBUG:
     urlpatterns += patterns(

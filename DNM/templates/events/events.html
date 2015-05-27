@@ -1,4 +1,5 @@
 {% load url from future %}
+{% load i18n %}
 
 <script type="text/javascript">
     var myCal = new JEC('calendar', {
@@ -8,7 +9,7 @@
         firstDayOfWeek: 2,
         specialDays: [ 1 ],
         linkNewWindow: false,
-        months: ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
+        months: ["{% trans "Jan"%}", "{% trans "Feb"%}", "{% trans "Mar"%}", "{% trans "Apr"%}", "{% trans "Maj"%}", "{% trans "Jun"%}", "{% trans "Jul"%}", "{% trans "Aug"%}", "{% trans "Sep"%}", "{% trans "Okt"%}", "{% trans "Nov"%}", "{% trans "Dec"%}"],
         weekdays: [
             "S",
             "M",
@@ -45,7 +46,7 @@
     {% for event in event_list %}
         <div style="margin-bottom: 5px">
             <a href={% url 'event:view' event.id %}>{{ event.name }}</a><br>
-            <div style="font-size: 10px"><b>{{ event.date|date:"d.n.Y : H:i" }}</b> | <i>Anmälan stänger: {{ event.deadline|date:"d.n : H:i" }}</i></div>
+            <div style="font-size: 10px"><b>{{ event.date|date:"d.n.Y : H:i" }}</b> | <i>{% trans "Anmälan stänger"%}: {{ event.deadline|date:"d.n : H:i" }}</i></div>
         </div>
     {% endfor %}
 <div id="calendar">

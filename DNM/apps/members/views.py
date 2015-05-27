@@ -12,7 +12,7 @@ from DNM.apps.members.forms import *
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 
-
+from django.utils.translation import ugettext as _
 @login_required
 def users(request):
     users = Member.objects.filter(is_active=True).order_by('last_name')
@@ -64,14 +64,14 @@ def save(request, user_id):
                     form.save_m2m()
                     # user = authenticate(username=form.instance.username, password=request.POST.get('password'))
                     #login(request, user)
-                    messages.add_message(request, messages.SUCCESS, 'Medlem sparade!')
+                    messages.add_message(request, messages.SUCCESS, _('Medlem sparade!'))
                     return HttpResponseRedirect(reverse('UserInformation:profile', args=(form.instance.id,)))
                 else:
-                    messages.add_message(request, messages.ERROR, 'Felaktigt lösenord')
+                    messages.add_message(request, messages.ERROR, _('Felaktigt lösenord'))
             else:
-                messages.add_message(request, messages.ERROR, 'Lösenordet får ej vara tomt')
+                messages.add_message(request, messages.ERROR, _('Lösenordet får ej vara tomt'))
         else:
-            messages.add_message(request, messages.ERROR, 'Korrigera felen')
+            messages.add_message(request, messages.ERROR, _('Korrigera felen'))
     else:
         if (get_user(request).title.styrelsePost or get_user(request).is_superuser):
             form = MemberFormSuper()
@@ -85,10 +85,10 @@ def save(request, user_id):
 def delete(request, user_id):
     member = Member.objects.get(pk=user_id)
     if not ((request.user.title and request.user.title.styrelsePost) or request.user.is_superuser):
-        messages.add_message(request, messages.ERROR, 'Du har inte rätt att ta bort användare')
+        messages.add_message(request, messages.ERROR, _('Du har inte rätt att ta bort användare'))
         return HttpResponseRedirect(reverse('UserInformation:users', args=()))
     Member.delete(member)
-    messages.add_message(request, messages.SUCCESS, 'Medlem borttaget')
+    messages.add_message(request, messages.SUCCESS, _('Medlem borttaget'))
     return HttpResponseRedirect(reverse('UserInformation:users'))
 
 
@@ -107,7 +107,7 @@ def adminSave(request, user_id):
         form = MemberFormSuper(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Medlem sparad!')
+            messages.add_message(request, messages.SUCCESS, _('Medlem sparad!'))
             return HttpResponseRedirect(reverse('UserInformation:profile', args=(form.instance.id,)))
     else:
         form = MemberFormSuper()
@@ -131,13 +131,13 @@ def kontakt(request, user_id):
                 user.set_password(request.POST.get('password'))
             user.save()
             form.save_m2m()
-            messages.add_message(request, messages.SUCCESS, 'Kontaktuppgifter sparad!')
+            messages.add_message(request, messages.SUCCESS, _('Kontaktuppgifter sparad!'))
             return HttpResponse(render_to_string('components/dummy_modal.html', {'user_': user}))
         else:
             context = {'form': form, 'user_': user}
             return render(request, 'userInformation/kontakt.html', context)
     if int(user_id) != request.user.id and user_id != None:
-        messages.add_message(request, messages.ERROR, 'Du har inte rätt att ändra dessa uppgifter')
+        messages.add_message(request, messages.ERROR, _('Du har inte rätt att ändra dessa uppgifter'))
         HttpResponseRedirect(reverse('UserInformation:profile', args=(user_id)))
     user_ = Member.objects.get(pk=user_id)
     form = MemberFormKontakt(instance=user_)
@@ -150,10 +150,10 @@ def medlem(request, user_id):
         form = MemberFormMedlem(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Medlemsuppgifter sparad!')
+            messages.add_message(request, messages.SUCCESS, _('Medlemsuppgifter sparad!'))
             return HttpResponse(render_to_string('components/dummy_modal.html', {'user_': user}))
     if int(user_id) != request.user.id and user_id != None:
-        messages.add_message(request, messages.ERROR, 'Du har inte rätt att ändra dessa uppgifter')
+        messages.add_message(request, messages.ERROR, _('Du har inte rätt att ändra dessa uppgifter'))
         HttpResponseRedirect(reverse('UserInformation:profile', args=(user_id)))
     user_ = Member.objects.get(pk=user_id)
     form = MemberFormMedlem(instance=user_)
@@ -177,10 +177,10 @@ def other(request, user_id):
         if form.is_valid() and formset.is_valid():
             form.save()
             formset.save()
-            messages.add_message(request, messages.SUCCESS, 'Uppgifter sparad!')
+            messages.add_message(request, messages.SUCCESS, _('Uppgifter sparad!'))
             return HttpResponse(render_to_string('components/dummy_modal.html', {'user_': user}))
     if int(user_id) != request.user.id and user_id != None:
-        messages.add_message(request, messages.ERROR, 'Du har inte rätt att ändra dessa uppgifter')
+        messages.add_message(request, messages.ERROR, _('Du har inte rätt att ändra dessa uppgifter'))
         HttpResponseRedirect(reverse('UserInformation:profile', args=(user_id)))
     user_ = Member.objects.get(pk=user_id)
     form = MemberFormOther(instance=user_)

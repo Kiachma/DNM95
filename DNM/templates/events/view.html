@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% load url from future %}
 {% block extrahead %}
 {% endblock %}
@@ -19,30 +19,30 @@
 
     <p>{{ event.description|safe }}</p>
     <hr>
-    <h4>Info</h4>
-    <p><b>Vad </b>: {{ event.name }}</p>
-    <p><b>Datum :</b> {{ event.date|date:"d.m.Y H:i" }}</p>
-    <p><b>Plats :</b> {{ event.place }}</p>
-    <p><b>Pris :</b> {{ event.price }} </p>
-    <p><b>Deadline :</b> {{ event.deadline|date:"d.m.Y H:i" }}</p>
-    <p><b>Max deltagarantal :</b> {{ event.maxSignUps }}</p>
+    <h4>{% trans "Info" %}</h4>
+    <p><b>{% trans "Vad" %} </b>: {{ event.name }}</p>
+    <p><b>{% trans "Datum" %} :</b> {{ event.date|date:"d.m.Y H:i" }}</p>
+    <p><b>{% trans "Plats" %} :</b> {{ event.place }}</p>
+    <p><b>{% trans "Pris" %} :</b> {{ event.price }} </p>
+    <p><b>{% trans "Deadline" %} :</b> {{ event.deadline|date:"d.m.Y H:i" }}</p>
+    <p><b>{% trans "Max deltagarantal" %} :</b> {{ event.maxSignUps }}</p>
 
     <hr>
 
 
 
     {% if user.title.styrelsePost or user.is_superuser  or user == event.member %}
-        <a class="btn btn-default" href="{% url 'event:edit' event.id %}">Ändra</a>
-        <a class="btn btn-danger" onclick="return confirm('Är du säker på att du vill radera {{ event.name }}')"
-           href="{% url 'event:delete' event.id %}">Radera </a>
+        <a class="btn btn-default" href="{% url 'event:edit' event.id %}">{% trans "Ändra" %}</a>
+        <a class="btn btn-danger" onclick="return confirm('{% trans "Är du säker på att du vill radera"%} {{ event.name }}')"
+           href="{% url 'event:delete' event.id %}">{% trans "Radera" %} </a>
     {% endif %}
-    <h3>Anmälan</h3>
+    <h3>{% trans "Anmälan"%}</h3>
 
     {% if event.deadlinePassed %}
-        Anmälningstiden har tyvärr gått ut
+        {% trans "Anmälningstiden har tyvärr gått ut"%}
     {% else %}
         {% if event.isFull %}
-            <p> Evenemanget är tyvärr fullt, du hamnar på reservlista!</p>
+            <p> {% trans "Evenemanget är tyvärr fullt, du hamnar på reservlista!"%}</p>
         {% endif %}
 
         <form class="form-horizontal" action="{% url 'signup:save' event.id %}" method="post">{% csrf_token %}
@@ -50,9 +50,9 @@
             {{ formset.management_form }}
             {% for form_ in formset %}
                 {% if forloop.counter == 1 %}
-                    <h4>Medlem</h4>
+                    <h4>{% trans "Medlem"%}</h4>
                 {% else %}
-                    <h4>Avec {{ forloop.counter|add:"-1" }}</h4>
+                    <h4>{% trans "Avec"%} {{ forloop.counter|add:"-1" }}</h4>
                 {% endif %}
                 {% for field in form_ %}
                     <div class="form-group"  {% if field.errors %} has-error {% endif %} >
@@ -93,24 +93,24 @@
                 {% endfor %}
             {% endfor %}
             <br/>
-            <input class="btn btn-default" type="submit" value="Anmäl"/>
+            <input class="btn btn-default" type="submit" value="{% trans "Anmäl"%}"/>
 
         </form>
     {% endif %}
     <div class="row">
         <div class="col-sm-6">
-            <h4>Anmälningar</h4>
+            <h4>{% trans "Anmälningar"%}</h4>
 
-            <p>I Tenor {{ count.first }}</p>
+            <p>{% trans "I Tenor"%} {{ count.first }}</p>
 
-            <p>II Tenor {{ count.sec }}</p>
+            <p>{% trans "II Tenor" %}{{ count.sec }}</p>
 
-            <p>Baryton {{ count.baryton }}</p>
+            <p>{% trans "Baryton"%} {{ count.baryton }}</p>
 
-            <p>II Bas {{ count.bas }}</p>
+            <p>{% trans "II Bas"%} {{ count.bas }}</p>
         </div>
         <div class="col-sm-6" id="userData">
-            <a href="#" class="export btn btn-primary pull-right">Exportera till .csv (Excel)</a>
+            <a href="#" class="export btn btn-primary pull-right">{% trans "Exportera till .csv (Excel)"%}</a>
         </div>
     </div>
     {% if signUps %}
@@ -122,17 +122,17 @@
                 <th data-tablesaw-sortable-col data-tablesaw-priority="persist" data-tablesaw-sortable-default-col>#
                 </th>
 
-                <th data-tablesaw-sortable-col data-tablesaw-priority="persist">Namn</th>
+                <th data-tablesaw-sortable-col data-tablesaw-priority="persist">{% trans "Namn"%}</th>
 
-                <th data-tablesaw-sortable-col data-tablesaw-priority="2">Diet</th>
-                <th data-tablesaw-sortable-col data-tablesaw-priority="2">Email</th>
+                <th data-tablesaw-sortable-col data-tablesaw-priority="2">{% trans "Diet"%}</th>
+                <th data-tablesaw-sortable-col data-tablesaw-priority="2">{% trans "Email"%}</th>
                 {% for text_field in text_fields %}
                     <th data-tablesaw-sortable-col data-tablesaw-priority="2">{{ text_field.textField.label }}</th>
                 {% endfor %}
                 {% for check_box in check_boxes %}
                     <th data-tablesaw-sortable-col data-tablesaw-priority="2">{{ check_box.checkbox.label }}</th>
                 {% endfor %}
-                <th data-tablesaw-priority="4">Radera</th>
+                <th data-tablesaw-priority="4">{% trans "Radera"%}</th>
             </tr>
             </thead>
             <tbody>
@@ -193,9 +193,9 @@
                             <td>
                                 <a class="btn btn-danger"
                                    href="{% url 'signup:remove' signUp.id event.id %}"
-                                   onclick="return confirm('Är du säker på att du vill ta bort anmälan')">Radera</a>
+                                   onclick="return confirm('Är du säker på att du vill ta bort anmälan')">{% trans "Radera"%}</a>
                                 <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#ajax-modal"
-                                   data-href="{% url 'signup:edit' signUp.id %}">Ändra</a>
+                                   data-href="{% url 'signup:edit' signUp.id %}">{% trans "Ändra"%}</a>
                             </td>
                             {% else %}
                                 <td></td>
@@ -203,7 +203,7 @@
                     </tr>
                     {% if forloop.counter == event.maxSignUps %}
                         <th colspan="0">
-                            <h5>Reservlista:</h5>
+                            <h5>{% trans "Reservlista"%}:</h5>
                         </th>
                     {% endif %}
                 {% else %}
@@ -263,9 +263,9 @@
                             <td>
                                 <a class="btn btn-danger"
                                    href="{% url 'signup:remove' signUp.id event.id %}"
-                                   onclick="return confirm('Är du säker på att du vill ta bort anmälan')">Radera</a>
+                                   onclick="return confirm({% trans "Är du säker på att du vill ta bort anmälan"%})">{% trans "Radera"%}</a>
                                 <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#ajax-modal"
-                                   data-href="{% url 'signup:edit' signUp.id %}">Ändra</a>
+                                   data-href="{% url 'signup:edit' signUp.id %}">{% trans "Ändra"%}</a>
                             </td>
                             {% else %}
                                 <td></td>
@@ -276,7 +276,7 @@
             </tbody>
         </table>
     {% else %}
-        Inga anmälningar
+        {% trans "Inga anmälningar"%}
     {% endif %}
     <br/>
     <br/>
@@ -346,8 +346,8 @@
                 // We actually need this to be a typical hyperlink
             });
         });
-    $.fn.bootstrapSwitch.defaults.onText = 'Ja';
-    $.fn.bootstrapSwitch.defaults.offText = 'Nej';
+    $.fn.bootstrapSwitch.defaults.onText = {% trans "Ja"%};
+    $.fn.bootstrapSwitch.defaults.offText = {% trans "Nej"%};
     $(".switch-checkbox").bootstrapSwitch();
 
     </script>

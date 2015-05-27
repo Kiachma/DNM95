@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
-{% block title %} Contact{% endblock %}
+{% load i18n %}
+{% block title %} {% trans "Kontakt"%}{% endblock %}
 
 
 
@@ -8,7 +9,7 @@
 {% block content %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Styrelsen</h3>
+            <h3 class="panel-title">{% trans "Styrelsen"%}</h3>
         </div>
         <div class="panel-body">
             {% for member in styrelsen %}
@@ -27,7 +28,7 @@
     </div>
 
     {% if user.title.styrelsePost or user.is_superuser %}
-        <a href={% url 'editpage' text.identifier %}>Ändra text </a>
+        <a href={% url 'editpage' text.identifier %}>{% trans "Ändra text"%} </a>
     {% endif %}
     {% if text %}
         {{ text.text|safe }}

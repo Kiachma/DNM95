@@ -2,22 +2,24 @@
 {% load url from future %}
 {% load thumbnail %}
 {% load gravatar %}
+{% load i18n %}
+
 {% block extrahead %}
     <script type="text/javascript" src="{{ STATIC_URL }}js/table2CSV.js"></script>
 {% endblock %}
 {% if text %}
-    {% block title %} Användare{% endblock %}
+    {% block title %}{% trans "Användare"%}{% endblock %}
 {% endif %}
 
 
 
 {% block content %}
 
-    <h3>Medlemmar</h3>
+    <h3>{% trans "Medlemmar"%}</h3>
     {% if users %}
         <div class="row">
         <div class="col-sm-4" id="userData">
-            <a href="#" class="export btn btn-primary">Exportera till .csv (Excel)</a>
+            <a href="#" class="export btn btn-primary">{% trans "Exportera till .csv (Excel)"%}</a>
         </div>
         <div class="col-sm-8" id="userData">
             <div class="input-group">
@@ -38,35 +40,35 @@
                 <thead>
                 <tr>
                      <th data-tablesaw-sortable-col data-tablesaw-priority="1">
-                        Bild
+                        {% trans "Bild"%}
                     </th>
                     <th data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="persist">
-                        Namn
+                        {% trans "Namn"%}
                     </th>
                     <th data-tablesaw-sortable-col data-tablesaw-priority="2">
-                        Titel
+                        {% trans "Titel"%}
                     </th>
                     <th data-tablesaw-sortable-col data-tablesaw-priority="2">
-                        Noblett
+                        {% trans "Noblett"%}
                     </th>
                     <th data-tablesaw-sortable-col data-tablesaw-priority="2">
-                        Stämma
+                        {% trans "Stämma"%}
                     </th>
                     <th data-tablesaw-sortable-col data-tablesaw-priority="3">
-                        Födelsetid
+                        {% trans "Födelsetid"%}
                     </th>
                     <th data-tablesaw-sortable-col data-tablesaw-priority="3">
-                        Telefonnummer
+                        {% trans "Telefonnummer"%}
                     </th>
                     <th data-tablesaw-sortable-col data-tablesaw-priority="3">
-                        E-post
+                        {% trans "E-post"%}
                     </th>
                     <th data-tablesaw-sortable-col data-tablesaw-priority="3">
-                        Postadress
+                        {% trans "Postadress"%}
                     </th>
                     {% if user.title.styrelsePost or user.is_superuser %}
                         <th data-tablesaw-priority="1">
-                            Admin
+                            {% trans "Admin"%}
                         </th>
                     {% endif %}
                 </tr>
@@ -110,13 +112,13 @@
 
                                 <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
                                    data-href="{% url 'UserInformation:admin'  user_.id %}">
-                                    Administrera
+                                    {% trans "Administrera"%}
                                 </a>
 
                                 <form style=" margin-bottom:0px;display:inline-block" class="form-inline"
                                       action="{% url 'UserInformation:delete' user_.id %}" method="post">
                                     {% csrf_token %}
-                                    <input id="confirm" class="btn btn-danger" type="submit" value="Ta bort" onclick="return confirm('Är du säker på att du vill ta bort {{ user_.get_full_name }}')"/>
+                                    <input id="confirm" class="btn btn-danger" type="submit" value="{% trans "Ta bort"%} onclick="return confirm('{% trans "Är du säker på att du vill ta bort"%} {{ user_.get_full_name }}')"/>
                                 </form>
 
 
@@ -131,7 +133,7 @@
         </div>
      </div>
     {% else %}
-        <p>Inga användare.</p>
+        <p>{% trans "Inga användare"%}.</p>
     {% endif %}
 
 

@@ -1,5 +1,6 @@
 {% load url from future %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 
 <div class="modal-dialog">
@@ -9,7 +10,7 @@
               action="{% url 'signup:edit' signup.id %}">{% csrf_token %}
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Ändra anmälan för {{ signup.name }}</h4>
+                <h4 class="modal-title">{% trans "Ändra anmälan för"%} {{ signup.name }}</h4>
             </div>
             <div class="modal-body">
                 {% for hidden in form.hidden_fields %}
@@ -61,7 +62,7 @@
 
             </div>
             <div class="modal-footer">
-                <input class="btn btn-default" type="submit" value="Spara"/>
+                <input class="btn btn-default" type="submit" value="{% trans "Spara"%}"/>
             </div>
         </form>
 

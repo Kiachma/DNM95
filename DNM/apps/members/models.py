@@ -1,5 +1,5 @@
 # coding=utf-8
-
+from django.utils.translation import ugettext as _
 from sorl.thumbnail import ImageField
 
 from django.contrib.auth.models import *
@@ -13,8 +13,8 @@ class Grad(models.Model):
     def __unicode__(self):
         return self.grad
 
-    grad = models.CharField(max_length=200, verbose_name='Noblett')
-    order = models.SmallIntegerField(verbose_name='Order')
+    grad = models.CharField(max_length=200, verbose_name=_('Noblett'))
+    order = models.SmallIntegerField(verbose_name=_('Ordning'))
 
     def isGuest(self):
         if self.grad == u'Gäst':
@@ -28,21 +28,21 @@ class Grad(models.Model):
 class Stamma(models.Model):
     def __unicode__(self):
         return self.namn or u''
-    namn = models.NullBooleanField(max_length=200, verbose_name=u'Stämma')
+    namn = models.NullBooleanField(max_length=200, verbose_name=_(u'Stämma'))
 
-    namn = models.CharField(max_length=200, verbose_name=u'Titel')
+    namn = models.CharField(max_length=200, verbose_name=_(u'Titel'))
 class Title(models.Model):
     def __unicode__(self):
         return self.namn or u''
-    styrelsePost = models.NullBooleanField(max_length=200, verbose_name=u'Styrelsepost')
+    styrelsePost = models.NullBooleanField(max_length=200, verbose_name=_(u'Styrelsepost'))
 
-    namn = models.CharField(max_length=200, verbose_name=u'Titel')
+    namn = models.CharField(max_length=200, verbose_name=_(u'Titel'))
 
 class MyUserManager(BaseUserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
         now = timezone.now()
         if not email:
-            raise ValueError('The given email must be set')
+            raise ValueError(_('The given email must be set'))
         email = UserManager.normalize_email(email)
         user = self.model(username=username, email=email,
                           is_staff=False, is_active=True, is_superuser=False,
@@ -65,19 +65,19 @@ def get_image_path(instance, filename):
 
 class Member(AbstractBaseUser, PermissionsMixin):
     # Link to the user model
-    username = models.CharField(max_length=30, unique=True, db_index=True, verbose_name=u'Användarnamn')
+    username = models.CharField(max_length=30, unique=True, db_index=True, verbose_name=_(u'Användarnamn'))
     email = models.EmailField('E-post', max_length=254, unique=True)
-    first_name = models.CharField(max_length=200, verbose_name=u'Förnamn')
-    last_name = models.CharField(max_length=200, verbose_name='Efternamn')
+    first_name = models.CharField(max_length=200, verbose_name=_(u'Förnamn'))
+    last_name = models.CharField(max_length=200, verbose_name=_('Efternamn'))
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
     # fodelsedatum = models.DateField('date of birth', blank=True, null=True)
     grad = models.ForeignKey(Grad, blank=False, default=1)
-    title = models.ForeignKey(Title, blank=True, null=True, verbose_name=u'Titel')
-    stamma = models.ForeignKey(Stamma, blank=True, null=True, verbose_name=u'Stämma')
+    title = models.ForeignKey(Title, blank=True, null=True, verbose_name=_(u'Titel'))
+    stamma = models.ForeignKey(Stamma, blank=True, null=True, verbose_name=(u'Stämma'))
     date_joined = models.DateTimeField('date joined', default=timezone.now)
-    phone = models.CharField(max_length=200, blank=True, verbose_name=u'Telefonnummer')
-    address = models.CharField(max_length=200, blank=True, verbose_name=u'Postadress')
+    phone = models.CharField(max_length=200, blank=True, verbose_name=_(u'Telefonnummer'))
+    address = models.CharField(max_length=200, blank=True, verbose_name=_(u'Postadress'))
     is_staff = models.BooleanField('staff status', default=False,
                                    help_text='Designates whether the user can log into this admin '
                                              'site.')
@@ -85,9 +85,9 @@ class Member(AbstractBaseUser, PermissionsMixin):
                                     help_text='Designates whether this user should be treated as '
                                               'active. Unselect this instead of deleting accounts.')
 
-    image = ImageField(upload_to=get_image_path, blank=True, null=True,  verbose_name=u'Profilbild')
-    diet  = models.CharField(max_length=500, blank=True, null=True, verbose_name=u'Diet')
-    birthday = models.DateTimeField(verbose_name='Födelsetid',blank=False,null=True)
+    image = ImageField(upload_to=get_image_path, blank=True, null=True,  verbose_name=_(u'Profilbild'))
+    diet  = models.CharField(max_length=500, blank=True, null=True, verbose_name=_(u'Diet'))
+    birthday = models.DateTimeField(verbose_name=_(u'Födelsetid'),blank=False,null=True)
 
 
     def up_to_date(self):
@@ -116,10 +116,10 @@ class Avec(models.Model):
     def __unicode__(self):
         return self.name
 
-    name = models.CharField(max_length=200, verbose_name=u'Namn')
-    diet = models.CharField(max_length=200, verbose_name=u'Diet',null=True, blank=True)
-    email = models.CharField(max_length=200, verbose_name=u'E-post')
-    members  = models.ForeignKey(Member, blank=True, null=True, verbose_name=u'Avec')
+    name = models.CharField(max_length=200, verbose_name=_(u'Namn'))
+    diet = models.CharField(max_length=200, verbose_name=_(u'Diet'),null=True, blank=True)
+    email = models.CharField(max_length=200, verbose_name=_(u'E-post'))
+    members  = models.ForeignKey(Member, blank=True, null=True, verbose_name=_(u'Avec'))
 
 # Receive the pre_delete signal and delete the file associated with the model instance.
 from django.db.models.signals import pre_save

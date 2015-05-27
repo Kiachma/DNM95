@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% load i18n %}
 {% if text %}
     {% block title %} {{ text.identifier }}{% endblock %}
 {% endif %}
@@ -10,7 +11,7 @@
 {#    <h3>{{ text.identifier }}</h3>#}
 
     {% if user.title.styrelsePost or user.is_superuser %}
-        <a class ="btn btn-default"  href={% url 'editpage' text.identifier %}>Ändra text </a>
+        <a class ="btn btn-default"  href={% url 'editpage' text.identifier %}>{% trans "Ändra text"%} </a>
     {% endif %}
     {% if text %}
     {{ text.text|safe }}

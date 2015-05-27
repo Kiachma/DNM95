@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load widget_tweaks %}
-{% block title %}Bildgalleri{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "Bildgalleri"%}{% endblock %}
 {% block content %}
     {% load thumbnail %}
 
-    <h1>Album<a class="btn btn-success pull-right" href={% url 'gallery:album_create' %}>Lägg till album </a></h1>
+    <h1>{% trans "Album"%}<a class="btn btn-success pull-right" href={% url 'gallery:album_create' %}>{% trans "Lägg till album"%} </a></h1>
 
     {% for album in object_list reversed%}
         <a href="{% url 'gallery:photo_list' album.id %}">
@@ -18,7 +20,7 @@
 
         </a>
     {% empty %}
-        Inga album ännu
+        {% trans "Inga album ännu"%}
     {% endfor %}
 
 

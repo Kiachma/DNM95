@@ -17,7 +17,7 @@ from braces.views import (
 
 from DNM.apps.gallery.models import Album, Photo
 from DNM.apps.gallery.forms import AlbumForm
-
+from django.utils.translation import ugettext as _
 class AlbumCreate(CreateView):
     form_class = AlbumForm
     success_url = '/gallery/album_list/'
@@ -69,14 +69,14 @@ class AjaxPhotoUploadView(LoginRequiredMixin,
         try:
             album = Album.objects.get(pk=kwargs.get('pk'))
         except Album.DoesNotExist:
-            error_dict = {'message': 'Album not found.'}
+            error_dict = {'message': _('Fann inte albumet.')}
             return self.render_json_response(error_dict, status=404)
 
         uploaded_file = request.FILES['file']
         photo = Photo.objects.create(album=album, file=uploaded_file)
         photo.save()
         response_dict = {
-            'message': 'File uploaded successfully!',
+            'message': _('Filen laddades upp!'),
         }
 
         return self.render_json_response(response_dict, status=200)

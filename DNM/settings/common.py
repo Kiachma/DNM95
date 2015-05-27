@@ -1,3 +1,5 @@
+from django.utils.translation import ugettext_lazy as _
+
 ADMINS = (
 
     ('Emil Aura', 'aura.emil@gmail.com'),
@@ -25,7 +27,13 @@ TIME_ZONE = 'Europe/Helsinki'
 
 # http://www.i18nguy.com/unicode/languageidentifiers.html
 
-LANGUAGE_CODE = 'sv_FI'
+LANGUAGE_CODE = 'nb_NO'
+
+LANGUAGES = (
+    ('nb', _('Norsk')),
+    ('sv', _('Svenska')),
+    ('en', _('English')),
+)
 
 SITE_ID = 1
 
@@ -88,6 +96,7 @@ MIDDLEWARE_CLASSES = (
     # Uncomment the next line for simple clickjacking protection:
 
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 
 )
 
@@ -263,7 +272,7 @@ SUMMERNOTE_CONFIG = {
     'width': '100%',
 
     # Set editor language/locale
-    'lang': 'en-US',
+    'lang': 'nb-NO',
 
     # Customize toolbar buttons
     'toolbar': [
