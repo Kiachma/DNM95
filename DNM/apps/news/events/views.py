@@ -100,10 +100,10 @@ def view(request, event_id):
     text_fields = TextFieldXEvent.objects.filter(event_id__exact=event.id)
 
     count = {}
-    count['baryton'] = len(signUps.filter(Q(member__stamma__namn="Baryton")))
-    count['bas'] = len(signUps.filter(Q(member__stamma__namn="II Bas")))
-    count['first'] = len(signUps.filter(Q(member__stamma__namn="I Tenor")))
-    count['sec'] = len(signUps.filter(Q(member__stamma__namn="II Tenor")))
+    count['baryton'] = len(signUps.filter(Q(member__stamma__namn="Baryton") , ~Q(avec=True)))
+    count['bas'] = len(signUps.filter(Q(member__stamma__namn="II Bas") , ~Q(avec=True)))
+    count['first'] = len(signUps.filter(Q(member__stamma__namn="I Tenor" ) , ~Q( avec=True)))
+    count['sec'] = len(signUps.filter(Q(member__stamma__namn="II Tenor" ) , ~Q( avec=True)))
 
     c = {'event': event, 'signUps': signUps, 'formset': formset, 'check_boxes': check_boxes, 'text_fields': text_fields, 'iterator': iterator, 'count' : count}
     return render_to_response('events/view.html', c, RequestContext(request))
