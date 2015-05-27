@@ -5,7 +5,7 @@
 {% load widget_tweaks %}
 {% load gravatar %}
 {% if text %}
-    {% block title %} Användare{% endblock %}
+    {% block title %} {% trans "Användare"%}{% endblock %}
 {% endif %}
 
 
@@ -26,7 +26,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <strong> Födelsetid</strong>
+                    <strong> {% trans "Födelsetid"%}</strong>
                 </div>
                 <div class="col-sm-9">
                     {{ user_.birthday|date:"d.m.Y" }}
@@ -34,7 +34,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <strong> Email</strong>
+                    <strong> {% trans "Email"%}</strong>
                 </div>
                 <div class="col-sm-9">
                     {{ user_.email }}
@@ -42,7 +42,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <strong> Telefon</strong>
+                    <strong> {% trans "Telefon"%}</strong>
                 </div>
                 <div class="col-sm-9">
                     {{ user_.phone }}
@@ -51,7 +51,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <strong> Postadress</strong>
+                    <strong> {% trans "Postadress"%}</strong>
                 </div>
                 <div class="col-sm-9">
                     {{ user_.address }}
@@ -60,13 +60,13 @@
             {% if user_.id == request.user.id or user_.id == None %}
                 <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
                    data-href="{% url 'UserInformation:kontakt' user_.id %}">
-                    Ändra personuppgifter
+                    {% trans "Ändra personuppgifter"%}
                 </a>
             {% endif %}
             {% if user.title.styrelsePost or user.is_superuser %}
                 <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
                    data-href="{% url 'UserInformation:admin' user_.id %}">
-                    Administrera
+                    {% trans "Administrera"%}
                 </a>
             {% endif %}
         </div>
@@ -75,12 +75,12 @@
         <div class="col-sm-6">
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>Medlemsuppgifter</h4>
+                    <h4>{% trans "Medlemsuppgifter"%}</h4>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-5">
-                    <strong> Stämma</strong>
+                    <strong> {% trans "Stämma"%}</strong>
                 </div>
                 <div class="col-sm-7">
                     {{ user_.stamma.namn }}
@@ -88,7 +88,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-5">
-                    <strong> Titel</strong>
+                    <strong> {% trans "Titel"%}</strong>
                 </div>
                 <div class="col-sm-7">
                     {{ user_.title.namn }}
@@ -96,7 +96,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-5">
-                    <strong> Noblett</strong>
+                    <strong> {% trans "Noblett"%}</strong>
                 </div>
                 <div class="col-sm-7">
                     {{ user_.grad.grad }}
@@ -105,7 +105,7 @@
             {% if user_.id == request.user.id or user_.id == None %}
                 <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
                    data-href="{% url 'UserInformation:medlem' user_.id %}">
-                    Ändra medlemsuppgifter
+                    {% trans "Ändra medlemsuppgifter"%}
                 </a>
             {% endif %}
         </div>
@@ -113,13 +113,13 @@
             <div class="col-sm-6">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4>Övriga uppgifter</h4>
+                        <h4>{% trans "Övriga uppgifter"%}</h4>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-5">
-                        <strong> Dieter</strong>
+                        <strong> {% trans "Dieter"%}</strong>
                     </div>
                     <div class="col-sm-7">
                         {{ user_.diet }}
@@ -127,7 +127,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-5">
-                        <strong> Avecer</strong>
+                        <strong> {% trans "Avecer"%}</strong>
                     </div>
                     <div class="col-sm-7">
                         {% for avec in user_.avec_set.all %}
@@ -138,7 +138,7 @@
 
                 <a class="btn btn-default" href="#" data-toggle="modal" data-target="#ajax-modal"
                    data-href="{% url 'UserInformation:other' user_.id %}">
-                    Ändra övriga uppgifter
+                    {% trans "Ändra övriga uppgifter"%}
                 </a>
 
             </div>

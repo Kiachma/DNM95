@@ -1,5 +1,6 @@
 {% load url from future %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 
 <div class="modal-dialog">
@@ -19,7 +20,7 @@
                 {% endfor %}
             </div>
             <div class="modal-footer">
-                <input class="btn btn-default" type="submit" value="Spara"/>
+                <input class="btn btn-default" type="submit" value="{% trans "Spara"%}"/>
             </div>
         </form>
 

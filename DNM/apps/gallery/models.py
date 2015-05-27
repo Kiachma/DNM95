@@ -1,15 +1,15 @@
 from model_utils.models import TimeStampedModel
 from taggit.managers import TaggableManager
 from DNM.settings import MEDIA_ROOT
-
+from django.utils.translation import ugettext as _
 __author__ = 'eaura'
 # gallery/models.py
 from django.contrib.auth.models import *
 class Album(TimeStampedModel):
     def __unicode__(self):
         return self.title
-    title = models.CharField(max_length=250, verbose_name=u'Titel')
-    description = models.TextField(blank=True, null=True, verbose_name=u'Beskrivning')
+    title = models.CharField(max_length=250, verbose_name=_(u'Titel'))
+    description = models.TextField(blank=True, null=True, verbose_name=_(u'Beskrivning'))
     cover_photo = models.ForeignKey('Photo', related_name='+', blank=True,
                                     null=True)
     is_public = models.BooleanField(default=True)

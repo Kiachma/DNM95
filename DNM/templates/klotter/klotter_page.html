@@ -1,5 +1,6 @@
 {% load mptt_tags %}
 {% load endless %}
+{% load i18n %}
 {% if nodes %}
     <hr>
     {% paginate nodes %}
@@ -57,17 +58,17 @@
 
                         <a class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#ajax-modal"
                            data-href="{% url 'klotter:comment' node.id %}">
-                            Kommentera
+                            {% trans "Kommentera"%}
                         </a>
                         {% if node.member == user %}
                             <a class="btn btn-default btn-xs" href="#" data-toggle="modal" data-target="#ajax-modal"
                                data-href="{% url 'klotter:edit' node.id %}">
-                                Redigera inlägg
+                                {% trans "Redigera inlägg"%}
                             </a>
                         {% endif %}
                         {% if node.get_descendant_count != 0 %}
                             <button id="toggle_comments_{{ node.id }}" class="btn btn-default btn-xs">
-                                Visa/Dölj kommentarer ({{ node.get_descendant_count }})
+                                {% trans "Visa/Dölj kommentarer"%} ({{ node.get_descendant_count }})
                             </button>
                         {% endif %}
                     </div>
@@ -87,7 +88,7 @@
     {% show_more %}
 
 {% else %}
-    <p>Inga inlägg.</p>
+    <p>{% trans "Inga inlägg"%}.</p>
 {% endif %}
 
 {% block scripts %}

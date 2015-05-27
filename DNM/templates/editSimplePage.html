@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load widget_tweaks %}
-
+{% load i18n %}
 {% if text %}
     {% block title %} {{ text.identifier }}{% endblock %}
 {% endif %}
@@ -26,6 +26,6 @@
             </div>
         {% endfor %}
 
-        <input class="btn btn-sucess" type="submit" value="Spara"/>
+        <input class="btn btn-sucess" type="submit" value="{% trans "Spara"%}"/>
     </form>
 {% endblock %}

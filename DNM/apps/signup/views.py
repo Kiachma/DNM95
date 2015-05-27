@@ -14,7 +14,7 @@ from django.forms.formsets import formset_factory
 from datetime import datetime
 from django.utils import timezone
 import pytz
-
+from django.utils.translation import ugettext as _
 def save_user_checkboxes(request, event, signup, counter):
     checkboxes = CheckboxXEvent.objects.filter(event__id=event.id)
     # checkboxes= get_check_boxes_for_event(event.id)
@@ -68,11 +68,11 @@ def Save(request, event_id):
                 save_user_checkboxes(request, event, signup, counter)
                 save_user_text_fields(request, event, signup, counter)
 
-            messages.add_message(request, messages.SUCCESS, 'Anmälan sparad')
+            messages.add_message(request, messages.SUCCESS, _('Anmälan sparad'))
             return HttpResponseRedirect(reverse('event:view', args=(event_id,)))
 
     c = {'form': form, 'event': event}
-    messages.add_message(request, messages.ERROR, 'Anmälan misslyckades')
+    messages.add_message(request, messages.ERROR, _('Anmälan misslyckades'))
     return render(request, 'events/view.html', c)
 
 
@@ -89,9 +89,9 @@ def Remove(request, event_id, signup_id):
     if (u.title and u.title.styrelsePost) or u.is_superuser or (u==signup.member and event.deadline>datetime.utcnow().replace(tzinfo=pytz.utc)):
         signup.delete()
         delete_extra_fields(signup)
-        messages.add_message(request, messages.SUCCESS, 'Anmälan borttagen')
+        messages.add_message(request, messages.SUCCESS, _('Anmälan borttagen'))
     else:
-        messages.add_message(request, messages.ERROR, 'Du har tyvärr inte rättigheter att ta bort denna anmälan, vänligen kontakta styrelsen')
+        messages.add_message(request, messages.ERROR, _('Du har tyvärr inte rättigheter att ta bort denna anmälan, vänligen kontakta styrelsen'))
     return HttpResponseRedirect(reverse('event:view', args=(event_id,)))
 
 @login_required
@@ -110,10 +110,10 @@ def Edit(request, signup_id):
             delete_extra_fields(signup)
             save_user_checkboxes(request, event, signup, 0)
             save_user_text_fields(request, event, signup, 0)
-            messages.add_message(request, messages.SUCCESS, 'Anmälan uppdaterad')
+            messages.add_message(request, messages.SUCCESS, _('Anmälan uppdaterad'))
             return HttpResponseRedirect(reverse('event:view', args=(signup.event_id,)))
         else:
-            messages.add_message(request, messages.ERROR, 'Du har tyvärr inte rättigheter att ta ändra denna anmälan, vänligen kontakta styrelsen')
+            messages.add_message(request, messages.ERROR, _('Du har tyvärr inte rättigheter att ta ändra denna anmälan, vänligen kontakta styrelsen'))
             return HttpResponseRedirect(reverse('event:view', args=(event.id,)))
     form = SignUpForm(instance=signup)
     event = signup.event

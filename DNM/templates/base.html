@@ -29,7 +29,7 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="{{ STATIC_URL }}bootstrap-3.3.4-dist/css/bootstrap.min.css">
-    <link href="{{STATIC_URL }}bootstrap-switches/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}bootstrap-switches/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">
 
     <!-- Optional theme -->
 
@@ -61,8 +61,8 @@
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
             a = s.createElement(o),
                     m = s.getElementsByTagName(o)[0];
             a.async = 1;
@@ -93,8 +93,16 @@
                 </span>
                 <span class="col-sm-9">
                     <div style="margin-top:15px;float:right;color: #0d5096">
-                        {{ user.get_full_name }} <a href="/logout">Logga ut</a>
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <a href="{% url 'changeLanguage' language.code %}"><img
+                                    src="{{ STATIC_URL }}images/{{ language.code }}.png"></a>
+                        {% endfor %}
+                        {{ user.get_full_name }} <a href="/logout">{% trans "Logga ut"%}</a>
                     </div>
+
+
+
                 </span>
 
 
@@ -104,27 +112,27 @@
             </div>
 
             <nav id="nav" style="width:100%">
-                <a href="#" id="menu-icon" aria-haspopup="true" class="visible-xs "  >
+                <a href="#" id="menu-icon" aria-haspopup="true" class="visible-xs ">
                     <button type="button" class="btn btn-default ">
                         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span> Menu
                     </button>
                 </a>
                 <ul class="navigation">
-                    <li class="highlight"><a href="/">Hem</a></li>
-                    <li><a id="Om" href={% url 'page' 'Om' %}>Om </a></li>
-                    <li><a id="Galleri" href="{% url 'gallery:album_list' %}">Galleri </a></li>
-                    <li><a id="Klotter" href={% url 'klotter:klotterplanket' %}>Klotterplanket </a></li>
-                    <li><a id="Kontakt" href={% url 'contact' %}>Kontakt </a></li>
+                    <li class="highlight"><a href="/">{% trans "Hem"%}</a></li>
+                    <li><a id="Om" href={% url 'page' 'Om' %}>{% trans "Om"%} </a></li>
+                    <li><a id="Galleri" href="{% url 'gallery:album_list' %}">{% trans "Galleri"%} </a></li>
+                    <li><a id="Klotter" href={% url 'klotter:klotterplanket' %}>{% trans "Klotterplanket"%} </a></li>
+                    <li><a id="Kontakt" href={% url 'contact' %}>{% trans "Kontakt"%} </a></li>
 
 
                     {% if not user.grad.isGuest %}
 
-                        <li><a href={% url 'UserInformation:users' %}>Medlemmar</a></li>
-                        <li><a href={% url 'UserInformation:profile' user.id %}>Profil</a></li>
+                        <li><a href={% url 'UserInformation:users' %}>{% trans "Medlemmar"%}</a></li>
+                        <li><a href={% url 'UserInformation:profile' user.id %}>{% trans "Profil"%}</a></li>
                         {#                        <li><a href={% url 'statistics' %}>Stats</a></li>#}
                     {% endif %}
                     <li style="float: right"><a href="#" data-toggle="modal" data-target="#ajax-modal"
-                                                data-href={% url 'UserInformation:new' %}>Ny medlem</a></li>
+                                                data-href={% url 'UserInformation:new' %}>{% trans "Ny medlem"%}</a></li>
 
 
                 </ul>
@@ -153,15 +161,13 @@
                     <img src="{{ STATIC_URL }}images/event_logo.png" style="margin-top: 6px" height="25">
 
                     <h3
-                            style="display: inline-block;margin-left: 3px">EVENEMANG</h3>
+                            style="display: inline-block;margin-left: 3px">{% trans "EVENEMANG"%}</h3>
                     <hr style="border:dashed #e5e5e5; border-width:1px 0 0 0; height:0;line-height:0px;font-size:0;margin:0;padding:0;margin-bottom: 30px"/>
 
                     <div style="margin-bottom:10px ">
                         {#                    {% if user.title.styrelsePost or user.is_superuser %}#}
-                        <a class="btn btn-success" style="display:inline-block" href={% url 'event:edit' 'None' %}>Nytt
-                            Evenemang </a>
-                        <a class="btn btn-default" style="display:inline-block" href={% url 'event:all' %}>Gamla
-                            evenemang</a>
+                        <a class="btn btn-success" style="display:inline-block" href={% url 'event:edit' 'None' %}>{% trans "Nytt Evenemang"%} </a>
+                        <a class="btn btn-default" style="display:inline-block" href={% url 'event:all' %}>{% trans "Gamla evenemang"%}</a>
                         {#                    {% endif %}#}
                     </div>
                     {% getEvents %}
@@ -184,17 +190,17 @@
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 
-                            Användarregistret har uppdaterats. Vänligen fyll i de tomma fälten <a
-                                href={% url 'UserInformation:profile' user.id %}>här</a>
+                            {% trans "Användarregistret har uppdaterats. Vänligen fyll i de tomma fälten"%} <a
+                                href={% url 'UserInformation:profile' user.id %}>{% trans "här"%}</a>
                         </div>
                     {% endif %}
 
                     {% block content %}
                         <img src="{{ STATIC_URL }}images/news_logo.png" style="margin-top: 6px;margin-left: 43px"
                              height="25">
-                        <h3 style="display: inline-block;margin-left: 3px">NYHETER</h3>
+                        <h3 style="display: inline-block;margin-left: 3px">{% trans "NYHETER"%}</h3>
                         {% if user.title.styrelsePost or user.is_superuser %}
-                            <a class="btn btn-success" href={% url 'news:edit' 'None' %}>Nytt inlägg </a>
+                            <a class="btn btn-success" href={% url 'news:edit' 'None' %}>{% trans "Nytt inlägg"%} </a>
                         {% endif %}
                         <hr style="border:dashed #e5e5e5; border-width:1px 0 0 0; height:0;line-height:0px;font-size:0;margin:0;padding:0;margin-bottom: 30px"/>
 
@@ -222,10 +228,10 @@
                                             {% with post|classname as modelclass %}
                                                 {% if modelclass == "News" %}
                                                     <a class="btn btn-default"
-                                                       href={% url 'news:edit' post.id %}>Redigera</a>
+                                                       href={% url 'news:edit' post.id %}>{% trans "Redigera"%}</a>
                                                 {% elif modelclass == "Event" %}
                                                     <a class="btn btn-default"
-                                                       href={% url 'event:edit' post.id %}>Redigera</a>
+                                                       href={% url 'event:edit' post.id %}>{% trans "Redigera"%}</a>
                                                 {% endif %}
                                             {% endwith %}
                                         {% endif %}
@@ -238,22 +244,22 @@
                             <div class="pagination">
                             <span class="step-links">
                                  {% if post_list.has_previous %}
-                                     <a href="?page={{ post_list.previous_page_number }}">Föregående</a>
+                                     <a href="?page={{ post_list.previous_page_number }}">{% trans "Föregående"%}</a>
                                  {% endif %}
 
                                 <span class="current">
-                                    Sida {{ post_list.number }} av {{ post_list.paginator.num_pages }}.
+                                    {% trans "Sida"%} {{ post_list.number }} av {{ post_list.paginator.num_pages }}.
                                 </span>
 
                                 {% if post_list.has_next %}
-                                    <a href="?page={{ post_list.next_page_number }}">Nästa</a>
+                                    <a href="?page={{ post_list.next_page_number }}">{% trans "Nästa"%}</a>
                                 {% endif %}
 
                             </span>
 
                             </div>
                         {% else %}
-                            <p>Inga inlägg.</p>
+                            <p>{% trans "Inga inlägg"%}.</p>
                         {% endif %}
 
 
@@ -269,7 +275,7 @@
             <div id="footerContent">
                 <h2>Det norske mannskor av 1995</h2>
 
-                <p>Spontan hyllning till Admiraldirigent ad laur. VVSOP Grand Cru VIII</p>
+                <p>{% trans "Spontan hyllning till"%} Admiraldirigent ad laur. VVSOP Grand Cru VIII</p>
 
                 <p> Hanne-Sofie Akselsen, Contessa de Rotunda</p>
 

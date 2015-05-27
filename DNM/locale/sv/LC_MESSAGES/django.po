@@ -1,0 +1,804 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-28 02:07+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: DNM/apps/gallery/models.py:11 DNM/apps/members/models.py:33
+#: DNM/apps/members/models.py:39 DNM/apps/members/models.py:76
+#: DNM/templates/userInformation/profile.html:91
+#: DNM/templates/userInformation/users.html:49
+msgid "Titel"
+msgstr ""
+
+#: DNM/apps/gallery/models.py:12 DNM/apps/news/models.py:13
+msgid "Beskrivning"
+msgstr ""
+
+#: DNM/apps/gallery/views.py:72
+msgid "Fann inte albumet."
+msgstr ""
+
+#: DNM/apps/gallery/views.py:79
+msgid "Filen laddades upp!"
+msgstr ""
+
+#: DNM/apps/klotter/models.py:16
+msgid "Kommentar"
+msgstr ""
+
+#: DNM/apps/klotter/models.py:18 DNM/apps/members/models.py:119
+#: DNM/apps/news/models.py:12 DNM/apps/signup/models.py:16
+#: DNM/templates/events/view.html:125
+#: DNM/templates/userInformation/users.html:46
+msgid "Namn"
+msgstr ""
+
+#: DNM/apps/klotter/views.py:30
+msgid "Kommentar sparad"
+msgstr ""
+
+#: DNM/apps/klotter/views.py:33 DNM/apps/klotter/views.py:87
+msgid "Kunde inte spara inlägg. Kolla att alla obligatoriska fält är ifyllda"
+msgstr ""
+
+#: DNM/apps/klotter/views.py:53
+msgid "En röst per medlem"
+msgstr ""
+
+#: DNM/apps/klotter/views.py:58
+msgid "Röst sparad"
+msgstr ""
+
+#: DNM/apps/klotter/views.py:78
+msgid "Du kan inte redigera andras inlägg"
+msgstr ""
+
+#: DNM/apps/klotter/views.py:85
+msgid "Inlägg redigerat"
+msgstr ""
+
+#: DNM/apps/members/models.py:16 DNM/templates/userInformation/profile.html:99
+#: DNM/templates/userInformation/users.html:52
+msgid "Noblett"
+msgstr ""
+
+#: DNM/apps/members/models.py:17
+msgid "Ordning"
+msgstr ""
+
+#: DNM/apps/members/models.py:31 DNM/templates/userInformation/profile.html:83
+#: DNM/templates/userInformation/users.html:55
+msgid "Stämma"
+msgstr ""
+
+#: DNM/apps/members/models.py:37
+msgid "Styrelsepost"
+msgstr ""
+
+#: DNM/apps/members/models.py:45
+msgid "The given email must be set"
+msgstr ""
+
+#: DNM/apps/members/models.py:68
+msgid "Användarnamn"
+msgstr ""
+
+#: DNM/apps/members/models.py:70
+msgid "Förnamn"
+msgstr ""
+
+#: DNM/apps/members/models.py:71
+msgid "Efternamn"
+msgstr ""
+
+#: DNM/apps/members/models.py:79 DNM/templates/userInformation/users.html:61
+msgid "Telefonnummer"
+msgstr ""
+
+#: DNM/apps/members/models.py:80 DNM/templates/userInformation/profile.html:54
+#: DNM/templates/userInformation/users.html:67
+msgid "Postadress"
+msgstr ""
+
+#: DNM/apps/members/models.py:88 DNM/templates/userInformation/kontakt.html:23
+msgid "Profilbild"
+msgstr ""
+
+#: DNM/apps/members/models.py:89 DNM/apps/members/models.py:120
+#: DNM/templates/events/view.html:127
+msgid "Diet"
+msgstr ""
+
+#: DNM/apps/members/models.py:90 DNM/templates/userInformation/profile.html:29
+#: DNM/templates/userInformation/users.html:58
+msgid "Födelsetid"
+msgstr ""
+
+#: DNM/apps/members/models.py:121 DNM/templates/userInformation/users.html:64
+msgid "E-post"
+msgstr ""
+
+#: DNM/apps/members/models.py:122 DNM/templates/events/view.html:55
+msgid "Avec"
+msgstr ""
+
+#: DNM/apps/members/views.py:67
+msgid "Medlem sparade!"
+msgstr ""
+
+#: DNM/apps/members/views.py:70
+msgid "Felaktigt lösenord"
+msgstr ""
+
+#: DNM/apps/members/views.py:72
+msgid "Lösenordet får ej vara tomt"
+msgstr ""
+
+#: DNM/apps/members/views.py:74
+msgid "Korrigera felen"
+msgstr ""
+
+#: DNM/apps/members/views.py:88
+msgid "Du har inte rätt att ta bort användare"
+msgstr ""
+
+#: DNM/apps/members/views.py:91
+msgid "Medlem borttaget"
+msgstr ""
+
+#: DNM/apps/members/views.py:110
+msgid "Medlem sparad!"
+msgstr ""
+
+#: DNM/apps/members/views.py:134
+msgid "Kontaktuppgifter sparad!"
+msgstr ""
+
+#: DNM/apps/members/views.py:140 DNM/apps/members/views.py:156
+#: DNM/apps/members/views.py:183
+msgid "Du har inte rätt att ändra dessa uppgifter"
+msgstr ""
+
+#: DNM/apps/members/views.py:153
+msgid "Medlemsuppgifter sparad!"
+msgstr ""
+
+#: DNM/apps/members/views.py:180
+msgid "Uppgifter sparad!"
+msgstr ""
+
+#: DNM/apps/news/events/models.py:11 DNM/templates/events/view.html:25
+msgid "Plats"
+msgstr ""
+
+#: DNM/apps/news/events/models.py:12 DNM/templates/events/view.html:26
+msgid "Pris"
+msgstr ""
+
+#: DNM/apps/news/events/models.py:13
+msgid "Sista anmälningsdag"
+msgstr ""
+
+#: DNM/apps/news/events/models.py:14 DNM/templates/events/view.html:24
+msgid "Datum"
+msgstr ""
+
+#: DNM/apps/news/events/models.py:15
+msgid "Max antal deltagare"
+msgstr ""
+
+#: DNM/apps/news/events/models.py:16
+msgid "Antal tillåt avecer"
+msgstr ""
+
+#: DNM/apps/news/views.py:45
+msgid "Nyhet sparad"
+msgstr ""
+
+#: DNM/apps/news/views.py:51
+msgid "Åtgärden misslyckades"
+msgstr ""
+
+#: DNM/apps/news/views.py:60
+msgid "Nyhet borttagen"
+msgstr ""
+
+#: DNM/apps/signup/models.py:17 DNM/templates/events/view.html:128
+#: DNM/templates/userInformation/profile.html:37
+msgid "Email"
+msgstr ""
+
+#: DNM/apps/signup/models.py:27 DNM/apps/signup/models.py:48
+msgid "Endast synlig i tabellen för styrelsen"
+msgstr ""
+
+#: DNM/apps/signup/models.py:28
+msgid "Checkbox titel"
+msgstr ""
+
+#: DNM/apps/signup/models.py:49
+msgid "Textfält titel"
+msgstr ""
+
+#: DNM/apps/signup/views.py:71
+msgid "Anmälan sparad"
+msgstr ""
+
+#: DNM/apps/signup/views.py:75
+msgid "Anmälan misslyckades"
+msgstr ""
+
+#: DNM/apps/signup/views.py:92
+msgid "Anmälan borttagen"
+msgstr ""
+
+#: DNM/apps/signup/views.py:94
+msgid ""
+"Du har tyvärr inte rättigheter att ta bort denna anmälan, vänligen kontakta "
+"styrelsen"
+msgstr ""
+
+#: DNM/apps/signup/views.py:113
+msgid "Anmälan uppdaterad"
+msgstr ""
+
+#: DNM/apps/signup/views.py:116
+msgid ""
+"Du har tyvärr inte rättigheter att ta ändra denna anmälan, vänligen kontakta "
+"styrelsen"
+msgstr ""
+
+#: DNM/apps/static_pages/models.py:8
+msgid "Text"
+msgstr ""
+
+#: DNM/settings/common.py:33
+msgid "Norsk"
+msgstr ""
+
+#: DNM/settings/common.py:34
+msgid "Svenska"
+msgstr ""
+
+#: DNM/settings/common.py:35
+msgid "English"
+msgstr ""
+
+#: DNM/templates/base.html:103
+msgid "Logga ut"
+msgstr ""
+
+#: DNM/templates/base.html:123
+msgid "Hem"
+msgstr ""
+
+#: DNM/templates/base.html:124
+msgid "Om"
+msgstr ""
+
+#: DNM/templates/base.html:125
+msgid "Galleri"
+msgstr ""
+
+#: DNM/templates/base.html:126 DNM/templates/klotter.html:8
+#: DNM/templates/klotter.html.py:14
+msgid "Klotterplanket"
+msgstr ""
+
+#: DNM/templates/base.html:127 DNM/templates/contact.html:4
+msgid "Kontakt"
+msgstr ""
+
+#: DNM/templates/base.html:132 DNM/templates/userInformation/users.html:18
+msgid "Medlemmar"
+msgstr ""
+
+#: DNM/templates/base.html:133
+msgid "Profil"
+msgstr ""
+
+#: DNM/templates/base.html:137
+msgid "Ny medlem"
+msgstr ""
+
+#: DNM/templates/base.html:166
+msgid "EVENEMANG"
+msgstr ""
+
+#: DNM/templates/base.html:171
+msgid "Nytt Evenemang"
+msgstr ""
+
+#: DNM/templates/base.html:172
+msgid "Gamla evenemang"
+msgstr ""
+
+#: DNM/templates/base.html:195
+msgid "Användarregistret har uppdaterats. Vänligen fyll i de tomma fälten"
+msgstr ""
+
+#: DNM/templates/base.html:196
+msgid "här"
+msgstr ""
+
+#: DNM/templates/base.html:203
+msgid "NYHETER"
+msgstr ""
+
+#: DNM/templates/base.html:205 DNM/templates/klotter.html:17
+msgid "Nytt inlägg"
+msgstr ""
+
+#: DNM/templates/base.html:233 DNM/templates/base.html.py:236
+msgid "Redigera"
+msgstr ""
+
+#: DNM/templates/base.html:249
+msgid "Föregående"
+msgstr ""
+
+#: DNM/templates/base.html:253
+msgid "Sida"
+msgstr ""
+
+#: DNM/templates/base.html:257
+msgid "Nästa"
+msgstr ""
+
+#: DNM/templates/base.html:264 DNM/templates/klotter/klotter_page.html:91
+msgid "Inga inlägg"
+msgstr ""
+
+#: DNM/templates/base.html:280
+msgid "Spontan hyllning till"
+msgstr ""
+
+#: DNM/templates/contact.html:12
+msgid "Styrelsen"
+msgstr ""
+
+#: DNM/templates/contact.html:31 DNM/templates/simplePage.html:14
+msgid "Ändra text"
+msgstr ""
+
+#: DNM/templates/editSimplePage.html:29 DNM/templates/events/edit.html:101
+#: DNM/templates/gallery/album_edit.html:19
+#: DNM/templates/gallery/album_new.html:20 DNM/templates/news/edit.html:35
+#: DNM/templates/signup/edit.html:65
+#: DNM/templates/userInformation/admin.html:23
+#: DNM/templates/userInformation/kontakt.html:39
+#: DNM/templates/userInformation/medlem.html:35
+#: DNM/templates/userInformation/other.html:39
+msgid "Spara"
+msgstr ""
+
+#: DNM/templates/events/all.html:6 DNM/templates/events/all.html.py:10
+msgid "Alla event"
+msgstr ""
+
+#: DNM/templates/events/edit.html:32
+msgid "Extra textfält"
+msgstr ""
+
+#: DNM/templates/events/edit.html:35
+msgid "Visa extra textfält"
+msgstr ""
+
+#: DNM/templates/events/edit.html:63
+msgid "Lägg till textfält"
+msgstr ""
+
+#: DNM/templates/events/edit.html:66
+msgid "Extra checkboxar"
+msgstr ""
+
+#: DNM/templates/events/edit.html:69
+msgid "Visa extra checkboxar"
+msgstr ""
+
+#: DNM/templates/events/edit.html:95
+msgid "Lägg till checkbox"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Jan"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Feb"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Mar"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Apr"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Maj"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Jun"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Jul"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Aug"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Sep"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Okt"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Nov"
+msgstr ""
+
+#: DNM/templates/events/events.html:12
+msgid "Dec"
+msgstr ""
+
+#: DNM/templates/events/events.html:49
+msgid "Anmälan stänger"
+msgstr ""
+
+#: DNM/templates/events/view.html:22
+msgid "Info"
+msgstr ""
+
+#: DNM/templates/events/view.html:23
+msgid "Vad"
+msgstr ""
+
+#: DNM/templates/events/view.html:27
+msgid "Deadline"
+msgstr ""
+
+#: DNM/templates/events/view.html:28
+msgid "Max deltagarantal"
+msgstr ""
+
+#: DNM/templates/events/view.html:35 DNM/templates/events/view.html.py:198
+#: DNM/templates/events/view.html:268 DNM/templates/news/view.html:13
+msgid "Ändra"
+msgstr ""
+
+#: DNM/templates/events/view.html:36
+msgid "Är du säker på att du vill radera"
+msgstr ""
+
+#: DNM/templates/events/view.html:37 DNM/templates/events/view.html.py:135
+#: DNM/templates/events/view.html:196 DNM/templates/events/view.html.py:266
+#: DNM/templates/news/view.html:14
+msgid "Radera"
+msgstr ""
+
+#: DNM/templates/events/view.html:39
+msgid "Anmälan"
+msgstr ""
+
+#: DNM/templates/events/view.html:42
+msgid "Anmälningstiden har tyvärr gått ut"
+msgstr ""
+
+#: DNM/templates/events/view.html:45
+msgid "Evenemanget är tyvärr fullt, du hamnar på reservlista!"
+msgstr ""
+
+#: DNM/templates/events/view.html:53
+msgid "Medlem"
+msgstr ""
+
+#: DNM/templates/events/view.html:96
+msgid "Anmäl"
+msgstr ""
+
+#: DNM/templates/events/view.html:102
+msgid "Anmälningar"
+msgstr ""
+
+#: DNM/templates/events/view.html:104
+msgid "I Tenor"
+msgstr ""
+
+#: DNM/templates/events/view.html:106
+msgid "II Tenor"
+msgstr ""
+
+#: DNM/templates/events/view.html:108
+msgid "Baryton"
+msgstr ""
+
+#: DNM/templates/events/view.html:110
+msgid "II Bas"
+msgstr ""
+
+#: DNM/templates/events/view.html:113
+#: DNM/templates/userInformation/users.html:22
+msgid "Exportera till .csv (Excel)"
+msgstr ""
+
+#: DNM/templates/events/view.html:206
+msgid "Reservlista"
+msgstr ""
+
+#: DNM/templates/events/view.html:266
+msgid "Är du säker på att du vill ta bort anmälan"
+msgstr ""
+
+#: DNM/templates/events/view.html:279
+msgid "Inga anmälningar"
+msgstr ""
+
+#: DNM/templates/events/view.html:349
+msgid "Ja"
+msgstr ""
+
+#: DNM/templates/events/view.html:350
+msgid "Nej"
+msgstr ""
+
+#: DNM/templates/gallery/album_edit.html:6
+#: DNM/templates/gallery/album_list.html:10
+#: DNM/templates/gallery/album_new.html:7
+msgid "Album"
+msgstr ""
+
+#: DNM/templates/gallery/album_edit.html:20
+msgid "Välj pärmbild"
+msgstr ""
+
+#: DNM/templates/gallery/album_list.html:6
+msgid "Bildgalleri"
+msgstr ""
+
+#: DNM/templates/gallery/album_list.html:10
+msgid "Lägg till album"
+msgstr ""
+
+#: DNM/templates/gallery/album_list.html:23
+msgid "Inga album ännu"
+msgstr ""
+
+#: DNM/templates/gallery/photo_list.html:12
+msgid "Ändra album"
+msgstr ""
+
+#: DNM/templates/gallery/photo_list.html:36
+msgid "Ladda upp bilder"
+msgstr ""
+
+#: DNM/templates/gallery/photo_list.html:38
+msgid "Vänligen skala ned bilderna till < 1MB/bild."
+msgstr ""
+
+#: DNM/templates/klotter/editComment.html:10
+msgid "Redigera kommentar"
+msgstr ""
+
+#: DNM/templates/klotter/editComment.html:30
+#: DNM/templates/klotter/writeComment.html:29
+msgid "Skicka"
+msgstr ""
+
+#: DNM/templates/klotter/editComment.html:31
+#: DNM/templates/klotter/writeComment.html:30
+msgid "Stäng"
+msgstr ""
+
+#: DNM/templates/klotter/klotter_page.html:61
+msgid "Kommentera"
+msgstr ""
+
+#: DNM/templates/klotter/klotter_page.html:66
+msgid "Redigera inlägg"
+msgstr ""
+
+#: DNM/templates/klotter/klotter_page.html:71
+msgid "Visa/Dölj kommentarer"
+msgstr ""
+
+#: DNM/templates/klotter/writeComment.html:9
+msgid "Ny kommentar"
+msgstr ""
+
+#: DNM/templates/registration/login.html:55
+msgid "Fel användarnamn eller lösenord"
+msgstr ""
+
+#: DNM/templates/registration/login.html:57
+#: DNM/templates/registration/password_reset_complete.html:3
+msgid "Logga in"
+msgstr ""
+
+#: DNM/templates/registration/login.html:58
+msgid "Glömt lösenord"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_complete.html:2
+msgid "Ditt lösenord har uppdaterats.  Du kan nu logga in igen"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_confirm.html:3
+msgid ""
+"Var god fyll i dit nya lösenord två ggr för att försäkra att du uppgett det "
+"korrekt"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_confirm.html:11
+#: DNM/templates/registration/password_reset_form.html:9
+msgid "Nytt lösenord"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_confirm.html:16
+msgid "Upprepa lösenord"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_confirm.html:21
+msgid "Byt lösenord"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_confirm.html:26
+msgid "Bytet av ditt lösenord misslyckades"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_confirm.html:27
+msgid "Linken var ogiltig, antagligen för att den redan använts en gång"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_confirm.html:28
+msgid "Var god och beställ en ny länk"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_done.html:4
+msgid ""
+"Uppgifter om hur du går tillväga för att byta ditt lösenord, har skickats "
+"still mailen du uppget på hemsidan"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_done.html:5
+msgid "Du får dem inom kort"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_email.html:3
+msgid "Du har fått detta mail eftersom  du begärt att byta ditt lösenord på"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_email.html:5
+msgid "Gå till följande link och välj ett nytt lösenord"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_email.html:10
+msgid "Ditt användarnamn är"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_form.html:2
+msgid "Fyll i din email adress för att välja ett nytt lösenord"
+msgstr ""
+
+#: DNM/templates/registration/password_reset_form.html:9
+msgid "Email adress"
+msgstr ""
+
+#: DNM/templates/signup/edit.html:13
+msgid "Ändra anmälan för"
+msgstr ""
+
+#: DNM/templates/statistics.html:5
+msgid "Statistik"
+msgstr ""
+
+#: DNM/templates/statistics.html:11
+msgid "Anmälningar / Epost"
+msgstr ""
+
+#: DNM/templates/statistics.html:15
+msgid "Klotter / Skribent"
+msgstr ""
+
+#: DNM/templates/statistics.html:17
+msgid "Gradfördeling"
+msgstr ""
+
+#: DNM/templates/userInformation/kontakt.html:19
+msgid "Personuppgifter för"
+msgstr ""
+
+#: DNM/templates/userInformation/kontakt.html:26
+msgid "Hämtas från gravatar.com"
+msgstr ""
+
+#: DNM/templates/userInformation/medlem.html:13
+msgid "Medlemsuppgifter för"
+msgstr ""
+
+#: DNM/templates/userInformation/other.html:14
+msgid "Uppgifter för"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:8
+#: DNM/templates/userInformation/users.html:11
+msgid "Användare"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:45
+msgid "Telefon"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:63
+msgid "Ändra personuppgifter"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:69
+#: DNM/templates/userInformation/users.html:115
+msgid "Administrera"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:78
+msgid "Medlemsuppgifter"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:108
+msgid "Ändra medlemsuppgifter"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:116
+msgid "Övriga uppgifter"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:122
+msgid "Dieter"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:130
+msgid "Avecer"
+msgstr ""
+
+#: DNM/templates/userInformation/profile.html:141
+msgid "Ändra övriga uppgifter"
+msgstr ""
+
+#: DNM/templates/userInformation/users.html:43
+msgid "Bild"
+msgstr ""
+
+#: DNM/templates/userInformation/users.html:71
+msgid "Admin"
+msgstr ""
+
+#: DNM/templates/userInformation/users.html:121
+msgid "Ta bort"
+msgstr ""
+
+#: DNM/templates/userInformation/users.html:121
+msgid "Är du säker på att du vill ta bort"
+msgstr ""
+
+#: DNM/templates/userInformation/users.html:136
+msgid "Inga användare"
+msgstr ""

@@ -8,13 +8,14 @@ from django.core.urlresolvers import reverse
 from DNM.apps.members.models import *
 from django.contrib.auth.models import *
 from mptt.models import MPTTModel, TreeForeignKey
+from django.utils.translation import ugettext as _
 class KlotterPost(MPTTModel):
     def __unicode__(self):
         return self.writer + self.created.isoformat()
 
-    text = models.TextField(verbose_name='Kommentar')
+    text = models.TextField(verbose_name=_('Kommentar'))
     created = models.DateTimeField(auto_now_add=True)
-    writer = models.CharField(max_length=200, verbose_name='Namn')
+    writer = models.CharField(max_length=200, verbose_name=_('Namn'))
     member = models.ForeignKey(Member)
 
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children')

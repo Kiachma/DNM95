@@ -10,7 +10,7 @@ from endless_pagination.decorators import page_template
 
 from DNM.apps.klotter.forms import KlotterForm
 from DNM.apps.klotter.models import KlotterPost, KlotterVote
-
+from django.utils.translation import ugettext as _
 
 __author__ = 'eaura'
 
@@ -27,10 +27,10 @@ def klotterplanket(request,template='klotter.html', extra_context=None):
             if request.POST.get("parent")!=u'None':
                 parent = KlotterPost.objects.get(pk=request.POST.get("parent"))
                 klotter.parent = parent
-            messages.add_message(request, messages.SUCCESS, 'Kommentar sparad')
+            messages.add_message(request, messages.SUCCESS, _('Kommentar sparad'))
             klotter.save()
         else:
-            messages.add_message(request, messages.ERROR, 'Kunde inte spara inlägg. Kolla att alla obligatoriska fält är ifyllda')
+            messages.add_message(request, messages.ERROR, _('Kunde inte spara inlägg. Kolla att alla obligatoriska fält är ifyllda'))
 
     klotter_list = [node.get_descendants(include_self=True)
          for node in KlotterPost.objects.filter(level__lte=0)]
@@ -50,12 +50,12 @@ def vote(request, klotter_id):
     klotter = KlotterPost.objects.get(pk=klotter_id)
     vote, created =  KlotterVote.objects.get_or_create(member = request.user, klotter = klotter)
     if not created:
-        messages.add_message(request, messages.ERROR, 'En röst per medlem')
+        messages.add_message(request, messages.ERROR, _('En röst per medlem'))
         return HttpResponseRedirect(reverse('klotter:klotterplanket'))
     else:
         vote.klotter_id=klotter_id
         KlotterVote.save(vote)
-        messages.add_message(request, messages.SUCCESS, 'Röst sparad')
+        messages.add_message(request, messages.SUCCESS, _('Röst sparad'))
         return HttpResponseRedirect(reverse('klotter:klotterplanket'))
 
 @login_required
@@ -75,16 +75,16 @@ def new(request):
 def edit(request, klotter_id):
     klotter=KlotterPost.objects.get(pk=klotter_id)
     if klotter.member_id != get_user(request).id:
-        messages.add_message(request, messages.ERROR, 'Du kan inte redigera andras inlägg')
+        messages.add_message(request, messages.ERROR, _('Du kan inte redigera andras inlägg'))
         return HttpResponseRedirect(reverse('klotter:klotterplanket'))
 
     if request.method == 'POST':
         form = KlotterForm(request.POST, instance=klotter)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Inlägg redigerat')
+            messages.add_message(request, messages.SUCCESS, _('Inlägg redigerat'))
         else:
-            messages.add_message(request, messages.ERROR, 'Kunde inte spara inlägg. Kolla att alla obligatoriska fält är ifyllda')
+            messages.add_message(request, messages.ERROR, _('Kunde inte spara inlägg. Kolla att alla obligatoriska fält är ifyllda'))
         return HttpResponseRedirect(reverse('klotter:klotterplanket'))
 
     else:

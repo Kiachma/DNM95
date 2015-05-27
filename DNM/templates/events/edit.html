@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load url from future %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block title %}{{ event.name }}{% endblock %}
 {% block content %}
@@ -28,10 +29,10 @@
                 {% endif %}
             </div>
         {% endfor %}
-        <h4>Extra textfält</h4>
+        <h4>{% trans "Extra textfält" %} </h4>
 
         <div id="extra_textfields_btn_div">
-            <input class="btn btn-default" type="button" value="Visa extra textfält" id="extra_textfields_btn">
+            <input class="btn btn-default" type="button" value="{% trans "Visa extra textfält"%}" id="extra_textfields_btn">
         </div>
 
 
@@ -59,13 +60,13 @@
                     {% endfor %}
                 </div>
             {% endfor %}
-            <input class="btn btn-default" type="button" value="Lägg till textfält" id="add_textfield">
+            <input class="btn btn-default" type="button" value="{% trans "Lägg till textfält"%}" id="add_textfield">
         </div>
 
-        <h4>Extra checkboxar</h4>
+        <h4>{% trans "Extra checkboxar" %}</h4>
 
         <div id="extra_checkboxes_btn_div">
-            <input class="btn btn-default" type="button" value="Visa extra checkboxar" id="extra_checkboxes_btn">
+            <input class="btn btn-default" type="button" value="{% trans "Visa extra checkboxar"%}" id="extra_checkboxes_btn">
         </div>
 
         <div id="extra_checkboxes" style="display: none">
@@ -91,13 +92,13 @@
                 </div>
 
             {% endfor %}
-            <input class="btn btn-default" type="button" value="Lägg till checkbox" id="add_checkbox">
+            <input class="btn btn-default" type="button" value="{% trans "Lägg till checkbox"%}" id="add_checkbox">
 
         </div>
         <br/>
 
 
-        <input class="btn btn-default" type="submit" value="Spara"/>
+        <input class="btn btn-default" type="submit" value="{% trans "Spara"%}"/>
     </form>
 
 

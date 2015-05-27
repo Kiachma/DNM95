@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
+{% load i18n %}
 <script>
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
@@ -51,10 +52,10 @@
                 {% endif %}
             {% endfor %}
             {% if form.errors %}
-                <p class="text-danger">Fel användarnamn eller lösenord.</p>
+                <p class="text-danger">{% trans "Fel användarnamn eller lösenord"%}.</p>
             {% endif %}
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Logga in</button>
-            <a href="{% url 'password_reset' %}">Glömt lösenord</a>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Logga in"%}</button>
+            <a href="{% url 'password_reset' %}">{% trans "Glömt lösenord"%}</a>
             <input type="hidden" name="next" value='/'/>
         </form>
 

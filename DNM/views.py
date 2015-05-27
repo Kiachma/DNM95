@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import user_passes_test
 from django.db.models import Q
-
+from django.utils.http import is_safe_url
+from django.utils import translation
 from DNM.apps.klotter.models import KlotterPost
 from DNM.apps.static_pages.models import PageText
 
@@ -17,6 +18,9 @@ from DNM.apps.news.models import *
 from DNM.apps.members.models import *
 
 from DNM.apps.signup.models import SignUp
+from django import http
+from django.utils.translation import check_for_language
+from DNM import settings
 
 
 @login_required
@@ -128,3 +132,19 @@ def contact(request):
     text, created = PageText.objects.get_or_create(identifier='Kontakt')
     context = {'styrelsen': styrelsen, 'text': text}
     return render(request, 'contact.html', context)
+
+
+def changeLanguage(request,language_code):
+    next = request.REQUEST.get('next')
+    if not is_safe_url(url=next, host=request.get_host()):
+        next = request.META.get('HTTP_REFERER')
+        if not is_safe_url(url=next, host=request.get_host()):
+            next = '/'
+    response = http.HttpResponseRedirect(next)
+    if language_code and check_for_language(language_code):
+        translation.activate(language_code)
+        if hasattr(request, 'session'):
+            request.session[translation.LANGUAGE_SESSION_KEY] = language_code
+        else:
+            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, language_code)
+    return response

@@ -1,20 +1,20 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% load url from future %}
 
 
 
 {% if text %}
-    {% block title %} Klotterplanket{% endblock %}
+    {% block title %} {% trans "Klotterplanket"%}{% endblock %}
 {% endif %}
 
 
 
 {% block content %}
-    <h3>Klotterplanket</h3>
+    <h3>{% trans "Klotterplanket"%}</h3>
     <a class ="btn btn-success"  href="#" data-toggle="modal" data-target="#ajax-modal"
        data-href="{% url 'klotter:new' %}">
-        Nytt inlägg
+        {% trans "Nytt inlägg"%}
     </a>
 {% include page_template %}
 

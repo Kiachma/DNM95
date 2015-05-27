@@ -2,13 +2,14 @@
 {% load url from future %}
 {% load widget_tweaks %}
 {% load thumbnail %}
+{% load i18n %}
 {% block title %}{{ album.title }}{% endblock %}
 {% block content %}
     <!-- templates/gallery/photo_list.html -->
 
     <div class="row col-lg-12">
         <h2 class="page-header">{{ album.title }} <a class="btn btn-default pull-right"
-                                                     href={% url 'gallery:album_edit' album.id %}>Ändra album</a></h2>
+                                                     href={% url 'gallery:album_edit' album.id %}>{% trans "Ändra album"%}</a></h2>
 
 
         {% if album.description %}{{ album.description|safe }}{% endif %}
@@ -32,9 +33,9 @@
     </div>
 
     <div class="row col-lg-12">
-        <h2 class="page-header">Ladda upp bilder</h2>
+        <h2 class="page-header">{% trans "Ladda upp bilder"%}</h2>
 
-        <p class="text-danger">Vänligen skala ned bilderna till < 1MB/bild.</p>
+        <p class="text-danger">{% trans "Vänligen skala ned bilderna till < 1MB/bild."%}</p>
 
         <form id="add-photos" action="{% url 'gallery:ajax_photo_upload_view' album.id %}" class="dropzone">
             {% csrf_token %}

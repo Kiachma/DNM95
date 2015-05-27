@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% load url from future %}
 {% block title %} {{ news }}{% endblock %}
@@ -9,8 +10,8 @@
     {{ news.description|safe }}
 
     {% if user.title.styrelsePost or user.is_superuser %}
-        <a class="btn btn-default" href="{% url 'news:edit' news.id %}">Ändra</a>
-        <a class="btn btn-danger" onclick="return confirm('Är du säker på att du vill ta bort {{ news.name }}')" href="{% url 'news:delete' news.id %}">Radera </a>
+        <a class="btn btn-default" href="{% url 'news:edit' news.id %}">{% trans "Ändra"%}</a>
+        <a class="btn btn-danger" onclick="return confirm('Är du säker på att du vill ta bort {{ news.name }}')" href="{% url 'news:delete' news.id %}">{% trans "Radera"%} </a>
     {% endif %}
 
 {% endblock %}

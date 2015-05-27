@@ -1,11 +1,13 @@
 {% load widget_tweaks %}
+{% load i18n %}
+
 <div class="modal-dialog">
     <div class="modal-content">
         <form action="{% url 'klotter:edit' klotter_id  %}" method="post">{% csrf_token %}
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="comment_modal_{{ klotter_id }}_label">Redigera kommentar</h4>
+                <h4 class="modal-title" id="comment_modal_{{ klotter_id }}_label">{% trans "Redigera kommentar"%}</h4>
             </div>
             <div class="modal-body">
 
@@ -25,8 +27,8 @@
 
             </div>
             <div class="modal-footer">
-                <input class="btn btn-primary" type="submit" value="Skicka"/>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+                <input class="btn btn-primary" type="submit" value="{% trans "Skicka"%}"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Stäng"%}</button>
             </div>
         </form>
     </div>
