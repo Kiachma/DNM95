@@ -64,12 +64,12 @@ def save(request, user_id):
                     form.save_m2m()
                     # user = authenticate(username=form.instance.username, password=request.POST.get('password'))
                     #login(request, user)
-                    messages.add_message(request, messages.SUCCESS, _('Medlem sparade!'))
+                    messages.add_message(request, messages.SUCCESS, _(u'Medlem sparade!'))
                     return HttpResponseRedirect(reverse('UserInformation:profile', args=(form.instance.id,)))
                 else:
-                    messages.add_message(request, messages.ERROR, _('Felaktigt lösenord'))
+                    messages.add_message(request, messages.ERROR, _(u'Felaktigt lösenord'))
             else:
-                messages.add_message(request, messages.ERROR, _('Lösenordet får ej vara tomt'))
+                messages.add_message(request, messages.ERROR, _(u'Lösenordet får ej vara tomt'))
         else:
             messages.add_message(request, messages.ERROR, _('Korrigera felen'))
     else:
@@ -85,7 +85,7 @@ def save(request, user_id):
 def delete(request, user_id):
     member = Member.objects.get(pk=user_id)
     if not ((request.user.title and request.user.title.styrelsePost) or request.user.is_superuser):
-        messages.add_message(request, messages.ERROR, _('Du har inte rätt att ta bort användare'))
+        messages.add_message(request, messages.ERROR, _(u'Du har inte rätt att ta bort användare'))
         return HttpResponseRedirect(reverse('UserInformation:users', args=()))
     Member.delete(member)
     messages.add_message(request, messages.SUCCESS, _('Medlem borttaget'))
@@ -137,7 +137,7 @@ def kontakt(request, user_id):
             context = {'form': form, 'user_': user}
             return render(request, 'userInformation/kontakt.html', context)
     if int(user_id) != request.user.id and user_id != None:
-        messages.add_message(request, messages.ERROR, _('Du har inte rätt att ändra dessa uppgifter'))
+        messages.add_message(request, messages.ERROR, _(u'Du har inte rätt att ändra dessa uppgifter'))
         HttpResponseRedirect(reverse('UserInformation:profile', args=(user_id)))
     user_ = Member.objects.get(pk=user_id)
     form = MemberFormKontakt(instance=user_)
@@ -153,7 +153,7 @@ def medlem(request, user_id):
             messages.add_message(request, messages.SUCCESS, _('Medlemsuppgifter sparad!'))
             return HttpResponse(render_to_string('components/dummy_modal.html', {'user_': user}))
     if int(user_id) != request.user.id and user_id != None:
-        messages.add_message(request, messages.ERROR, _('Du har inte rätt att ändra dessa uppgifter'))
+        messages.add_message(request, messages.ERROR, _(u'Du har inte rätt att ändra dessa uppgifter'))
         HttpResponseRedirect(reverse('UserInformation:profile', args=(user_id)))
     user_ = Member.objects.get(pk=user_id)
     form = MemberFormMedlem(instance=user_)
@@ -180,7 +180,7 @@ def other(request, user_id):
             messages.add_message(request, messages.SUCCESS, _('Uppgifter sparad!'))
             return HttpResponse(render_to_string('components/dummy_modal.html', {'user_': user}))
     if int(user_id) != request.user.id and user_id != None:
-        messages.add_message(request, messages.ERROR, _('Du har inte rätt att ändra dessa uppgifter'))
+        messages.add_message(request, messages.ERROR, _(u'Du har inte rätt att ändra dessa uppgifter'))
         HttpResponseRedirect(reverse('UserInformation:profile', args=(user_id)))
     user_ = Member.objects.get(pk=user_id)
     form = MemberFormOther(instance=user_)

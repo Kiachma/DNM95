@@ -48,7 +48,7 @@ def save(request, news_id):
         form = NewsForm
     news=News()
     c = {'form': form,'news': news}
-    messages.add_message(request, messages.ERROR, _('Åtgärden misslyckades'))
+    messages.add_message(request, messages.ERROR, _(u'Åtgärden misslyckades'))
     return render_to_response('news/edit.html', c, RequestContext(request))
 
 

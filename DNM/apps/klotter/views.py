@@ -30,7 +30,7 @@ def klotterplanket(request,template='klotter.html', extra_context=None):
             messages.add_message(request, messages.SUCCESS, _('Kommentar sparad'))
             klotter.save()
         else:
-            messages.add_message(request, messages.ERROR, _('Kunde inte spara inlägg. Kolla att alla obligatoriska fält är ifyllda'))
+            messages.add_message(request, messages.ERROR, _(u'Kunde inte spara inlägg. Kolla att alla obligatoriska fält är ifyllda'))
 
     klotter_list = [node.get_descendants(include_self=True)
          for node in KlotterPost.objects.filter(level__lte=0)]
@@ -50,12 +50,12 @@ def vote(request, klotter_id):
     klotter = KlotterPost.objects.get(pk=klotter_id)
     vote, created =  KlotterVote.objects.get_or_create(member = request.user, klotter = klotter)
     if not created:
-        messages.add_message(request, messages.ERROR, _('En röst per medlem'))
+        messages.add_message(request, messages.ERROR, _(u'En röst per medlem'))
         return HttpResponseRedirect(reverse('klotter:klotterplanket'))
     else:
         vote.klotter_id=klotter_id
         KlotterVote.save(vote)
-        messages.add_message(request, messages.SUCCESS, _('Röst sparad'))
+        messages.add_message(request, messages.SUCCESS, _(u'Röst sparad'))
         return HttpResponseRedirect(reverse('klotter:klotterplanket'))
 
 @login_required
@@ -75,16 +75,16 @@ def new(request):
 def edit(request, klotter_id):
     klotter=KlotterPost.objects.get(pk=klotter_id)
     if klotter.member_id != get_user(request).id:
-        messages.add_message(request, messages.ERROR, _('Du kan inte redigera andras inlägg'))
+        messages.add_message(request, messages.ERROR, _(u'Du kan inte redigera andras inlägg'))
         return HttpResponseRedirect(reverse('klotter:klotterplanket'))
 
     if request.method == 'POST':
         form = KlotterForm(request.POST, instance=klotter)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, _('Inlägg redigerat'))
+            messages.add_message(request, messages.SUCCESS, _(u'Inlägg redigerat'))
         else:
-            messages.add_message(request, messages.ERROR, _('Kunde inte spara inlägg. Kolla att alla obligatoriska fält är ifyllda'))
+            messages.add_message(request, messages.ERROR, _(u'Kunde inte spara inlägg. Kolla att alla obligatoriska fält är ifyllda'))
         return HttpResponseRedirect(reverse('klotter:klotterplanket'))
 
     else:
