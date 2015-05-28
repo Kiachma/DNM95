@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-28 02:07+0300\n"
+"POT-Creation-Date: 2015-05-28 11:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -235,34 +235,6 @@ msgstr ""
 msgid "Textfält titel"
 msgstr ""
 
-#: DNM/apps/signup/views.py:71
-msgid "Anmälan sparad"
-msgstr ""
-
-#: DNM/apps/signup/views.py:75
-msgid "Anmälan misslyckades"
-msgstr ""
-
-#: DNM/apps/signup/views.py:92
-msgid "Anmälan borttagen"
-msgstr ""
-
-#: DNM/apps/signup/views.py:94
-msgid ""
-"Du har tyvärr inte rättigheter att ta bort denna anmälan, vänligen kontakta "
-"styrelsen"
-msgstr ""
-
-#: DNM/apps/signup/views.py:113
-msgid "Anmälan uppdaterad"
-msgstr ""
-
-#: DNM/apps/signup/views.py:116
-msgid ""
-"Du har tyvärr inte rättigheter att ta ändra denna anmälan, vänligen kontakta "
-"styrelsen"
-msgstr ""
-
 #: DNM/apps/static_pages/models.py:8
 msgid "Text"
 msgstr ""
@@ -279,92 +251,92 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: DNM/templates/base.html:103
+#: DNM/templates/base.html:101
 msgid "Logga ut"
 msgstr ""
 
-#: DNM/templates/base.html:123
+#: DNM/templates/base.html:121
 msgid "Hem"
 msgstr ""
 
-#: DNM/templates/base.html:124
+#: DNM/templates/base.html:122
 msgid "Om"
 msgstr ""
 
-#: DNM/templates/base.html:125
+#: DNM/templates/base.html:123
 msgid "Galleri"
 msgstr ""
 
-#: DNM/templates/base.html:126 DNM/templates/klotter.html:8
+#: DNM/templates/base.html:124 DNM/templates/klotter.html:8
 #: DNM/templates/klotter.html.py:14
 msgid "Klotterplanket"
 msgstr ""
 
-#: DNM/templates/base.html:127 DNM/templates/contact.html:4
+#: DNM/templates/base.html:125 DNM/templates/contact.html:4
 msgid "Kontakt"
 msgstr ""
 
-#: DNM/templates/base.html:132 DNM/templates/userInformation/users.html:18
+#: DNM/templates/base.html:130 DNM/templates/userInformation/users.html:18
 msgid "Medlemmar"
 msgstr ""
 
-#: DNM/templates/base.html:133
+#: DNM/templates/base.html:131
 msgid "Profil"
 msgstr ""
 
-#: DNM/templates/base.html:137
+#: DNM/templates/base.html:135
 msgid "Ny medlem"
 msgstr ""
 
-#: DNM/templates/base.html:166
+#: DNM/templates/base.html:164
 msgid "EVENEMANG"
 msgstr ""
 
-#: DNM/templates/base.html:171
+#: DNM/templates/base.html:169
 msgid "Nytt Evenemang"
 msgstr ""
 
-#: DNM/templates/base.html:172
+#: DNM/templates/base.html:170
 msgid "Gamla evenemang"
 msgstr ""
 
-#: DNM/templates/base.html:195
+#: DNM/templates/base.html:193
 msgid "Användarregistret har uppdaterats. Vänligen fyll i de tomma fälten"
 msgstr ""
 
-#: DNM/templates/base.html:196
+#: DNM/templates/base.html:194
 msgid "här"
 msgstr ""
 
-#: DNM/templates/base.html:203
+#: DNM/templates/base.html:201
 msgid "NYHETER"
 msgstr ""
 
-#: DNM/templates/base.html:205 DNM/templates/klotter.html:17
+#: DNM/templates/base.html:203 DNM/templates/klotter.html:17
 msgid "Nytt inlägg"
 msgstr ""
 
-#: DNM/templates/base.html:233 DNM/templates/base.html.py:236
+#: DNM/templates/base.html:231 DNM/templates/base.html.py:234
 msgid "Redigera"
 msgstr ""
 
-#: DNM/templates/base.html:249
+#: DNM/templates/base.html:247
 msgid "Föregående"
 msgstr ""
 
-#: DNM/templates/base.html:253
+#: DNM/templates/base.html:251
 msgid "Sida"
 msgstr ""
 
-#: DNM/templates/base.html:257
+#: DNM/templates/base.html:255
 msgid "Nästa"
 msgstr ""
 
-#: DNM/templates/base.html:264 DNM/templates/klotter/klotter_page.html:91
+#: DNM/templates/base.html:262 DNM/templates/klotter/klotter_page.html:91
 msgid "Inga inlägg"
 msgstr ""
 
-#: DNM/templates/base.html:280
+#: DNM/templates/base.html:278
 msgid "Spontan hyllning till"
 msgstr ""
 
